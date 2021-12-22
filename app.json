@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "booksmart2",
+    "slug": "booksmart2",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "booksmart2"
+}
