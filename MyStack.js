@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/native";
 const Stack = createStackNavigator();
 import { useColorScheme } from "react-native";
+import Books from "./screens/Books";
 
 export default function MyStack() {
   const scheme = useColorScheme();
@@ -15,7 +16,7 @@ export default function MyStack() {
     ...DarkTheme,
     colors: {
       primary: "rgb(255, 45, 85)",
-      // background: "rgb(138,32,226)",
+      background: "rgb(75,0,130)",
       text: "rgb(28, 28, 30)",
     },
   };
@@ -23,6 +24,7 @@ export default function MyStack() {
     <NavigationContainer theme={ scheme === 'dark' ? DarkTheme : DefaultTheme }>
       <Stack.Navigator  >
         <Stack.Screen  name="Hem" component={Home}   options={{headerTitleAlign: 'center',title: 'Hem'}} />
+        <Stack.Screen  name="Books" component={Books}   options={{headerTitleAlign: 'center',title: 'Books'}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
