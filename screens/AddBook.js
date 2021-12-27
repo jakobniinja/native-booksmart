@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import {Picker, FormItem} from "react-native-form-component"
-
+import AppContext from  "../Context/AppContext"
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function AddBook() {
 
-const d = new Date();
   const [lastRead, setLastRead] = useState()
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
@@ -17,7 +17,7 @@ const d = new Date();
     var hours = new Date().getHours(); //Current Hours
     var min = new Date().getMinutes(); //Current Minutes
      setLastRead(
-       hours + ':' + min  + " - " +date + '/' + month + '/' + year 
+       date + '/' + month + '/' + year 
     );
       
   }, [])
@@ -26,8 +26,10 @@ const d = new Date();
   const [number, setNumber] = useState(1)
   const [title, setTitle] = useState("")
   const [pages, setPages] = useState(0 )
+  const {book1, setBook1} = useContext(AppContext)
+  
   const [items, setItems] = React.useState([
-    { name: `${title}`, code: "#8a2be2" },
+    { name: `${book1}`, code: "#8a2be2" },
   ]);
   return (
     <>
@@ -58,10 +60,12 @@ const d = new Date();
         style={styles.gridView}
         spacing={10}
         renderItem={({ item }) => (
-          <View style={[styles.itemContainer, { backgroundColor: item.code }]}>
+          <TouchableOpacity onPress={() => {navigation.goBack()}}>
+          <View   style={[styles.itemContainer, { backgroundColor: item.code }]}>
             <Text style={styles.itemName}>{item.name}</Text>
             <Text style={styles.itemCode}>{item.code}</Text>
           </View>
+          </TouchableOpacity>
         )}
         
       />
