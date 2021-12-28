@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,  useEffect} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { Button } from "react-native-elements";
@@ -54,6 +54,12 @@ export default function BookShelf() {
     { name: "SILVER", code: "#bdc3c7" },
     { name: "ASBESTOS", code: "#7f8c8d" },
   ]);
+  
+  useEffect(() => {
+    return () => {
+      setBook2({})
+    }
+  }, [])
 
   return (
     <>

@@ -6,10 +6,32 @@ import { useNavigation } from "@react-navigation/native";
 import {Picker, FormItem} from "react-native-form-component"
 import AppContext from  "../Context/AppContext"
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { db } from "../Firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 
 export default function AddBook() {
 
   const [lastRead, setLastRead] = useState()
+  const navigation = useNavigation();
+   const [users, setUsers] = useState([]);
+  const {book1, setBook1} = useContext(AppContext)
+  const [number, setNumber] = useState(1)
+  const [title, setTitle] = useState("")
+  const [pages, setPages] = useState(0 )
+  const [image, setImage] = useState("")
+  
+    const usersCollectionRef = collection(db, "users", );
+  const [items, setItems] = React.useState([
+    { name: `${book1}`, code: "#8a2be2" },
+  ]);
+
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -19,18 +41,33 @@ export default function AddBook() {
      setLastRead(
        date + '/' + month + '/' + year 
     );
-      
   }, [])
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      console.log(data)
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    const getBooks = async() => {
+      data = await firebase.firestore()
+.collection("users")
+.doc(getUsers.id)
+.collection('books')
+.get()
+console.log(data)
+    }
 
-  const navigation = useNavigation();
-  const [number, setNumber] = useState(1)
-  const [title, setTitle] = useState("")
-  const [pages, setPages] = useState(0 )
-  const {book1, setBook1} = useContext(AppContext)
-  
-  const [items, setItems] = React.useState([
-    { name: `${book1}`, code: "#8a2be2" },
-  ]);
+    getUsers();
+    getBooks();
+  }, []);  
+
+
+
+
+
+    const createBook= async () => {
+    await addDoc(usersCollectionRef, {title: title, pages:pages, lastread: lastRead, ImageURL:image, points: pages/3 });
+  };
   return (
     <>
     <FormItem
@@ -54,6 +91,29 @@ export default function AddBook() {
     onChangeText={(lastRead) => setLastRead(lastRead)}
     asterik
   />
+    <FormItem
+    placeholder="Image url"
+    isRequired
+    value={image}
+    onChangeText={(image) =>setImage(image)}
+    asterik
+  />
+  <View style={{display: "flex", flexDirection: "column", marginLeft:" 38%", width:"92%"}}>
+    <TouchableOpacity  onPress={() => {
+createBook;
+navigation.goBack();
+    }} >
+      <Button title="create"style={{width: "120px", marginTop: 10}}  />
+    </TouchableOpacity>
+    <TouchableOpacity  >
+      <Button title="update"style={{width: "120px", marginTop: 10}} />
+    </TouchableOpacity>
+    <TouchableOpacity  >
+      <Button title="delete" variant="outlined" style={{width: "120px", marginTop: 10}}/>
+    </TouchableOpacity>
+  </View>
+
+  
       <FlatGrid
         itemDimension={130}
         data={items}
@@ -84,8 +144,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     height: 140,
-    width: "90%",
-    marginLeft: "55%",
+    width: "92%",
+    marginLeft: "65%",
 
   },
   itemName: {
