@@ -75,6 +75,11 @@ export default function BookShelf() {
           borderWidth: 0,
           borderRadius: 5,
           paddingVertical: 10,
+          width: 300,
+          alignItems: "center",
+          justifyContent:"center",
+         marginLeft: "10.5%", 
+          marginTop: 15
         }}
       />
       <FlatGrid
