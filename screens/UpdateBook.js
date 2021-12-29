@@ -1,10 +1,9 @@
 
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import {Picker, FormItem} from "react-native-form-component"
 import AppContext from  "../Context/AppContext"
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -36,13 +35,15 @@ const styles = StyleSheet.create({
 });
 
 export default function UpdateBook() {
-  const [updateLastRead, setUpdateLastRead] = useState()
+  const [updateLastRead, setUpdateLastRead] = useState("12:00")
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
       setUpdateLastRead(
-       date + '/' + month + '/' + year 
+        hours + ':'+ min + ' '+ date + '/' + month + '/' + year 
     );
       
   }, [])
@@ -53,25 +54,25 @@ export default function UpdateBook() {
   const {book2 } = useContext(AppContext)
  
   const [items, setItems] = React.useState([
-    { name: `${book2.name}`, code: `${book2.code}` },
+    {  code: `${book2.code}` },
   ]);
     return (
     <>
-    <FormItem
+    <TextInput 
     placeholder="Title"
     isRequired
     value={updateTitle}
     onChangeText={(updateTitle) => setUpdateTitle(updateTitle)}
     asterik
   />
-    <FormItem
+    <TextInput 
     placeholder="Pages"
     isRequired
     value={updatePages}
     onChangeText={(updatePages) =>  setUpdatePages(updatePages)}
     asterik
   />
-    <FormItem
+    <TextInput 
     placeholder="Lastread"
     isRequired
     value={updateLastRead}
