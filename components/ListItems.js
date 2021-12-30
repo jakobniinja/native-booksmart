@@ -13,15 +13,15 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function ListItems() {
   const navigation = useNavigation();
   return (
-    <View style={{justifyContent:"center", alignItems: "center"}} >
+    <View style={{justifyContent:"center", alignItems: "center"  }} >
       <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
         <LinearGradient
           // Button Linear Gradient
-          colors={["#5614B0", "#DBD65C","#5614B0" ]}
+          colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={addBook} />
-        <ListItem.Content>
+        <ListItem.Content  >
           <ListItem.Title style={stylo.bg}>Books</ListItem.Title>
           <ListItem.Subtitle style={{color: "white"}} >add new book to collection</ListItem.Subtitle>
         </ListItem.Content>
@@ -31,7 +31,7 @@ export default function ListItems() {
         <LinearGradient
           // Button Linear Gradient
 
-          colors={["#5614B0", "#DBD65C","#5614B0" ]}
+          colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={searchIcon} />
@@ -46,7 +46,7 @@ export default function ListItems() {
       <ListItem style={stylo.body}>
         <LinearGradient
           // Button Linear Gradient
-          colors={["#5614B0", "#DBD65C","#5614B0" ]}
+          colors={["#5614B0", "#DBD65C"]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={leaderBoard} />
@@ -60,11 +60,11 @@ export default function ListItems() {
       <ListItem style={stylo.body}>
         <LinearGradient
           // Button Linear Gradient
-          colors={["#5614B0", "#DBD65C","#5614B0" ]}
+          colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={lightBulb} />
-        <ListItem.Content>
+        <ListItem.Content  >
           <ListItem.Title style={stylo.bg}>Vocabulary</ListItem.Title>
           <ListItem.Subtitle style={{color: "white"}}>Extend your Knowledge </ListItem.Subtitle>
         </ListItem.Content>
@@ -78,10 +78,10 @@ export default function ListItems() {
 const stylo = StyleSheet.create({
   bg: {
     fontWeight: "bold",
-    color: "lightgray"
+    color: "lightgray",
   },
   body: {
-    flex: 1,
+    width: "80%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: "12%",
@@ -92,6 +92,6 @@ const stylo = StyleSheet.create({
     right: 0,
     top: 0,
     height: 85,
-    width: "100%",
+    width: "115%",
   },
 });
