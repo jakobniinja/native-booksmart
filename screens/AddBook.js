@@ -79,7 +79,7 @@ export default function AddBook() {
           height: 20,
           marginTop: 25,
           fontSize: 15,
-          fontWeight: 500,
+          fontWeight: "500",
           padding: 15,
         }}
       />
@@ -95,7 +95,7 @@ export default function AddBook() {
           height: 20,
           marginBottom: 10,
           fontSize: 15,
-          fontWeight: 500,
+          fontWeight: "500",
           padding: 15,
         }}
       />
@@ -111,7 +111,7 @@ export default function AddBook() {
           height: 20,
           marginBottom: 10,
           fontSize: 15,
-          fontWeight: 500,
+          fontWeight: "500",
           padding: 15,
         }}
       />
@@ -127,7 +127,7 @@ export default function AddBook() {
           height: 20,
           marginBottom: 10,
           fontSize: 15,
-          fontWeight: 500,
+          fontWeight: "501",
           padding: 15,
         }}
       />
