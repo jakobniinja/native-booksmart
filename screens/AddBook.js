@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import React, { useContext, useEffect, useState, useMemo } from "react";
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Platform} from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
@@ -22,6 +22,8 @@ export default function AddBook() {
   const [title, setTitle] = useState("");
   const [pages, setPages] = useState(0);
   const [image, setImage] = useState("");
+  const [author, setAuthor] = useState("")
+  useMemo(() => {setTitle, setPages, setImage}, [setTitle, setPages, setImage])
 
   const usersCollectionRef = collection(db, "users");
   const booksCollectionref = doc(db, "users", "books");
@@ -66,70 +68,43 @@ export default function AddBook() {
     });
   };
   return (
-    <>
+    <KeyboardAvoidingView 
+       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <TextInput
         placeholder="Title"
+        placeholderTextColor={styles.TextInput}          
         value={title}
         onChangeText={(text) => setTitle(text)}
-        style={{
-          backgroundColor: "rgba(0,0,0, 0.6)",
-          textAlign: "center",
-          color: "gray",
-          justifyContent: "center",
-          height: 20,
-          marginTop: 25,
-          fontSize: 15,
-          fontWeight: "500",
-          padding: 15,
-        }}
+        style={styles.inputStyles}
+      />
+    
+      <TextInput
+        placeholder="Author"
+        placeholderTextColor={styles.TextInput}          
+        value={author}
+        onChangeText={(text) => setAuthor(text)}
+        style={styles.inputStyles}
       />
       <TextInput
         placeholder="Pages"
         value={pages}
         onChangeText={(text) => setPages(text)}
-        style={{
-          backgroundColor: "rgba(0,0,0,0.6)",
-          textAlign: "center",
-          justifyContent: "center",
-          color: "gray",
-          height: 20,
-          marginBottom: 10,
-          fontSize: 15,
-          fontWeight: "500",
-          padding: 15,
-        }}
+        style={styles.inputStyles}
       />
       <TextInput
         placeholder="Lastread"
         value={lastRead}
         onChangeText={(text) => setLastRead(text)}
-        style={{
-          backgroundColor: "rgba(0,0,0,0.6)",
-          textAlign: "center",
-          color: "gray",
-          justifyContent: "center",
-          height: 20,
-          marginBottom: 10,
-          fontSize: 15,
-          fontWeight: "500",
-          padding: 15,
-        }}
+        style={styles.inputStyles}
+        
       />
       <TextInput
         placeholder="Image url"
         value={image}
         onChangeText={(text) => setImage(text)}
-        style={{
-          backgroundColor: "rgba(0,0,0,0.7)",
-          textAlign: "center",
-          color: "gray",
-          justifyContent: "center",
-          height: 20,
-          marginBottom: 10,
-          fontSize: 15,
-          fontWeight: "501",
-          padding: 15,
-        }}
+        style={styles.inputStyles}
       />
       <View
         style={{
@@ -147,32 +122,12 @@ export default function AddBook() {
         >
           <Button
             title="create"
-            buttonStyle={{ backgroundColor: "gray" }}
+            buttonStyle={{ backgroundColor: "gray",               justifyContent: "center",
+              alignItems: "center", width: 80,  marginLeft: '7.3%'
+ }}
             style={{
-              width: "120px",
-              marginTop: 10,
-              backgroundColor: `${items.code}`,
-            }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Button
-            title="update"
-            buttonStyle={{ backgroundColor: "gray" }}
-            style={{
-              width: "120px",
-              marginTop: 10,
-              backgroundColor: `${items.code}`,
-            }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Button
-            title="delete"
-            background="gray"
-            buttonStyle={{ backgroundColor: "gray" }}
-            style={{
-              width: "120px",
+              display : "flex",
+              width: "70px",
               marginTop: 10,
               backgroundColor: `${items.code}`,
             }}
@@ -180,9 +135,9 @@ export default function AddBook() {
         </TouchableOpacity>
       </View>
       <FlatGrid
-        itemDimension={130}
+        itemDimension={230}
         data={items}
-        style={styles.gridView}
+        style={styles.container}
         spacing={10}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -193,37 +148,58 @@ export default function AddBook() {
             <View
               style={[styles.itemContainer, { backgroundColor: item.code }]}
             >
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemCode}>{item.code}</Text>
+              <Text style={styles.itemName}>{title}</Text>
+              <Text style={styles.itemCode}>{author}</Text>
             </View>
           </TouchableOpacity>
         )}
       />
-    </>
+    </KeyboardAvoidingView >
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   gridView: {
     marginTop: 10,
-    flex: 1,
+    height: 120,
+    width: 90,
+
   },
   itemContainer: {
     justifyContent: "flex-end",
-    borderRadius: 5,
+    borderRadius: 7,
     padding: 10,
     height: 140,
-    width: "92%",
-    marginLeft: "57%",
+    width:  140,
+    marginLeft: "30%",
   },
   itemName: {
     fontSize: 16,
     color: "#fff",
     fontWeight: "600",
+    height: 30
   },
   itemCode: {
     fontWeight: "600",
     fontSize: 12,
     color: "#fff",
   },
+  inputStyles:{
+          // backgroundColor: "rgba(255,255,255,0.7)",
+          margin: 3,
+          flex: 0.1,
+          textAlign: "center",
+          color: "black",
+          width: "50%",
+          marginLeft:"25.5%",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 20,
+          marginTop: 25,
+          fontSize: 15,
+          padding: 15,
+  }
 });
