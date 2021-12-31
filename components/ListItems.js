@@ -9,11 +9,13 @@ import searchIcon from "../assets/searchIcon.png";
 import { useNavigation } from "@react-navigation/native";
 import { makeStyles } from "@material-ui/core";
 import { LinearGradient } from "expo-linear-gradient";
+import { useTheme } from '@react-navigation/native';
 
 export default function ListItems() {
   const navigation = useNavigation();
+  const {colors } = useTheme();
   return (
-    <View style={{justifyContent:"center", alignItems: "center"  }} >
+    <View style={{justifyContent:"center", alignItems: "center",  }} >
       <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
         <LinearGradient
           // Button Linear Gradient
@@ -70,7 +72,6 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
-
     </View>
   );
 }
