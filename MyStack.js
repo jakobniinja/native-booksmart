@@ -26,13 +26,13 @@ export default function MyStack() {
     ...DarkTheme,
     colors: {
       primary: "rgb(255, 45, 85)",
-      background: "rgb(75,0,130)",
+      background: "rgb(0,0,0, 0.4)",
       text: "rgb(28, 28, 30)",
     },
   };
   return (
     <AppContext.Provider  value={allValues}>
-    <NavigationContainer theme={ scheme === 'dark' ? DarkTheme : DefaultTheme }>
+    <NavigationContainer >
       <Stack.Navigator  >
         <Stack.Screen  name="Hem" component={Home}   options={{headerTitleAlign: 'center',title: 'Hem'}} />
         <Stack.Screen  name="Books" component={Books}   options={{headerTitleAlign: 'center',title: 'kollektion'}} />
