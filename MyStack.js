@@ -12,6 +12,10 @@ import AddBook from "./screens/AddBook";
 import AppContext from "./Context/AppContext"
 import React, { useState } from "react";
 import UpdateBook from "./screens/UpdateBook";
+import UsersList from "./screens/UserList"
+import UserDetailScreen from "./screens/UserDetailScreen"
+import CreateUserScreen from "./screens/CreateUserScreen"
+
 export default function MyStack() {
   const scheme = useColorScheme();
   const [book1, setBook1] = useState("jakobs book")
@@ -38,6 +42,21 @@ export default function MyStack() {
         <Stack.Screen  name="Books" component={Books}   options={{headerTitleAlign: 'center',title: 'kollektion'}} />
         <Stack.Screen  name="AddBook" component={AddBook}   options={{headerTitleAlign: 'center',title: 'Lägg till'}} />
         <Stack.Screen  name="UpdateBook" component={UpdateBook}   options={{headerTitleAlign: 'center',title: 'Uppdatera'}} />
+              <Stack.Screen
+        name="UsersList"
+        component={UsersList}
+        options={{ title: "Users List" }}
+      />
+      <Stack.Screen
+        name="CreateUserScreen"
+        component={CreateUserScreen}
+        options={{ title: "Create a New User" }}
+      />
+      <Stack.Screen
+        name="UserDetailScreen"
+        component={UserDetailScreen}
+        options={{ title: "User Detail" }}
+      />
       </Stack.Navigator>
     </NavigationContainer>
     </AppContext.Provider>
