@@ -3,6 +3,7 @@ import { ListItem, Avatar } from "react-native-elements";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import lightBulb from "../assets/lightBulb.png";
+import google from "../assets/google.png";
 import addBook from "../assets/addBook.png";
 import leaderBoard from "../assets/leaderBoard.png";
 import searchIcon from "../assets/searchIcon.png";
@@ -10,6 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import { makeStyles } from "@material-ui/core";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from '@react-navigation/native';
+import users from "../assets/users.png"
+import folder from "../assets/folder.png"
 
 export default function ListItems() {
   const navigation = useNavigation();
@@ -31,15 +34,13 @@ export default function ListItems() {
       </ListItem>
       <ListItem style={stylo.body}>
         <LinearGradient
-          // Button Linear Gradient
-
           colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={searchIcon} />
         <ListItem.Content>
           <ListItem.Title style={stylo.bg}>Dictionary</ListItem.Title>
-        <ListItem.Subtitle style={{color: "white"}}  >Dictonary and Much more</ListItem.Subtitle>
+        <ListItem.Subtitle style={{color: "white"}}  >dictonary and Much more</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
@@ -54,7 +55,7 @@ export default function ListItems() {
         <Avatar source={leaderBoard} />
         <ListItem.Content>
           <ListItem.Title style={stylo.bg}>LeaderBoard</ListItem.Title>
-          <ListItem.Subtitle style={{color: "white"}} >Challenge yourself, daily..</ListItem.Subtitle>
+          <ListItem.Subtitle style={{color: "white"}} >challenge yourself, daily..</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
@@ -68,7 +69,19 @@ export default function ListItems() {
         <Avatar source={lightBulb} />
         <ListItem.Content  >
           <ListItem.Title style={stylo.bg}>Vocabulary</ListItem.Title>
-          <ListItem.Subtitle style={{color: "white"}}>Extend your Knowledge </ListItem.Subtitle>
+          <ListItem.Subtitle style={{color: "white"}}>extend your Knowledge </ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron color="white" />
+      </ListItem>
+      <ListItem style={stylo.body} onPress={() => navigation.navigate("UsersList")}>
+        <LinearGradient
+          colors={["#5614B0", "#DBD65C" ]}
+          style={stylo.background}
+        ></LinearGradient>
+        <Avatar source={folder} />
+        <ListItem.Content  >
+          <ListItem.Title style={stylo.bg}>Users</ListItem.Title>
+          <ListItem.Subtitle style={{color: "white"}} >save data and keep it</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>

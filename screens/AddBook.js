@@ -5,28 +5,16 @@ import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import AppContext from "../Context/AppContext";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { db } from "../Firebase";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
 
 export default function AddBook() {
   const [lastRead, setLastRead] = useState("12:00");
   const navigation = useNavigation();
-  const [users, setUsers] = useState([]);
   const [title, setTitle] = useState("");
   const [pages, setPages] = useState(0);
   const [image, setImage] = useState("");
   const [author, setAuthor] = useState("")
   useMemo(() => {setTitle, setPages, setImage}, [setTitle, setPages, setImage])
 
-  const usersCollectionRef = collection(db, "users");
-  const booksCollectionref = doc(db, "users", "books");
   const [items, setItems] = React.useState([
     { name: `SpegelMannen`, code: "#8a2be2" },
   ]);
@@ -39,34 +27,16 @@ export default function AddBook() {
     var min = new Date().getMinutes(); //Current Minutes
     setLastRead(hours + ":" + min + " " + date + "/" + month + "/" + year);
   }, []);
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      console.log(booksCollectionref);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    const getBooks = async () => {
-      const data = await getDocs(booksCollectionref);
-      console.log(data.docs.map(doc));
-    };
 
-    return () => {
-      setUsers({}); // This worked for me
-    };
-
-    getUsers();
-    getBooks();
-  }, [users]);
-
-  const createBook = async () => {
-    await addDoc(usersCollectionRef, {
-      title: title,
-      pages: pages,
-      lastread: lastRead,
-      ImageURL: image,
-      points: pages / 3,
-    });
-  };
+  // const createBook = async () => {
+  //   await addDoc(usersCollectionRef, {
+  //     title: title,
+  //     pages: pages,
+  //     lastread: lastRead,
+  //     ImageURL: image,
+  //     points: pages / 3,
+  //   });
+  // };
   return (
     <KeyboardAvoidingView 
        behavior={Platform.OS === "ios" ? "padding" : "height"}

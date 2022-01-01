@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, ScrollView } from "react-native";
-import { Button } from "react-native-elements";
+import {
+  Button,
+  View,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+} from "react-native";
 
 import firebase from "../Firebase";
+
 const AddUserScreen = (props) => {
   const initalState = {
     name: "",
@@ -20,6 +26,7 @@ const AddUserScreen = (props) => {
     if (state.name === "") {
       alert("please provide a name");
     } else {
+
       try {
         await firebase.db.collection("users").add({
           name: state.name,
@@ -29,7 +36,7 @@ const AddUserScreen = (props) => {
 
         props.navigation.navigate("UsersList");
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
   };
@@ -48,7 +55,7 @@ const AddUserScreen = (props) => {
       {/* age Input */}
       <View style={styles.inputGroup}>
         <TextInput
-          placeholder="Age"
+          placeholder="age"
           multiline={true}
           numberOfLines={4}
           onChangeText={(value) => handleChangeText(value, "age")}
@@ -59,20 +66,14 @@ const AddUserScreen = (props) => {
       {/* Input */}
       <View style={styles.inputGroup}>
         <TextInput
-          placeholder="Occupation"
+          placeholder="occupation"
           onChangeText={(value) => handleChangeText(value, "occupation")}
           value={state.occupation}
         />
       </View>
 
       <View style={styles.button}>
-        <Button
-          title="Save User"
-          onPress={() => saveNewUser()}
-          buttonStyle={{
-            backgroundColor: "gray",
-          }}
-        />
+        <Button title="Save User" onPress={() => saveNewUser()} />
       </View>
     </ScrollView>
   );
