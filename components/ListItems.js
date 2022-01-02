@@ -1,6 +1,6 @@
 import { ListItem, Avatar } from "react-native-elements";
 
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import lightBulb from "../assets/lightBulb.png";
 import google from "../assets/google.png";
@@ -13,12 +13,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from '@react-navigation/native';
 import users from "../assets/users.png"
 import folder from "../assets/folder.png"
+import AppContext from "../Context/AppContext";
 
 export default function ListItems() {
   const navigation = useNavigation();
   const {colors } = useTheme();
+  const {user} = useContext(AppContext)
   return (
     <View style={{justifyContent:"center", alignItems: "center",  }} >
+
+
+      {user.name != 'guest' ? (
+
+
       <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
         <LinearGradient
           // Button Linear Gradient
@@ -32,6 +39,25 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
+      ) : (
+
+      <ListItem style={stylo.body} >
+        <LinearGradient
+          // Button Linear Gradient
+          colors={[ "#DBD65C", "#5614B0" ]}
+          style={stylo.background}
+        ></LinearGradient>
+        <Avatar source={addBook} />
+        <ListItem.Content  >
+          <ListItem.Title style={stylo.bg}>Books Disbaled</ListItem.Title>
+          <ListItem.Subtitle style={{color: "white"}} >Set a User to continue..</ListItem.Subtitle>
+        </ListItem.Content>
+        <ListItem.Chevron color="white" />
+      </ListItem>
+
+      )}
+
+
       <ListItem style={stylo.body}>
         <LinearGradient
           colors={["#5614B0", "#DBD65C" ]}
