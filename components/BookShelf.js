@@ -27,31 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#fff",
   },
-});
-
-export default function BookShelf() {
-  const { setBook2 } = useContext(AppContext);
-  const navigation = useNavigation();
-  const [items, setItems] = React.useState([
-    { name: "TURQUOISE", code: "#1abc9c" },
-    { name: "ASBESTOS", code: "#7f8c8d" },
-  ]);
-  
-  useEffect(() => {
-    return () => {
-      setBook2({})
-    }
-  }, [])
-
-  return (
-    <>
-      <Button
-        title="Extend Collection"
-        onPress={() => {
-          navigation.navigate("AddBook");
-        }}
-        titleStyle={{ fontWeight: "700" }}
-        buttonStyle={{
+  pBtn: {
           backgroundColor: "#8a2be2",
           borderColor: "transparent",
           borderWidth: 0,
@@ -62,30 +38,31 @@ export default function BookShelf() {
           justifyContent:"center",
          marginLeft: "10.5%", 
           marginTop: 15
+  }
+});
+
+export default function BookShelf() {
+  const { setBook2, user, setUser } = useContext(AppContext);
+  const navigation = useNavigation();
+  
+  useEffect(() => {
+    setUser(user)
+  }, [])
+
+  return (
+    <>
+    {user ? (
+    <Text  style={{textAlign: 'center', fontSize: 15}} > Welcome {user.name} </Text>
+    ) : (null)}
+      <Button
+        title="Extend Collection"
+        onPress={() => {
+          navigation.navigate("AddBook");
         }}
+        titleStyle={{ fontWeight: "700" }}
+        buttonStyle={styles.pBtn}
       />
       <BookGrid/>
-      {/* <FlatGrid
-        itemDimension={130}
-        data={items}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => {
-              setBook2({ name: item.name,code: item.code });
-              navigation.navigate("UpdateBook");
-            }}
-          >
-            <View
-              style={[styles.itemContainer, { backgroundColor: item.code }]}
-            >
-              <Text style={styles.itemName}>{item.name}</Text>
-              <Text style={styles.itemCode}>{item.code}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      /> */}
     </>
   );
 }
