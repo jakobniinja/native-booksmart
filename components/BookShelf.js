@@ -52,7 +52,7 @@ export default function BookShelf() {
   return (
     <>
     {user ? (
-    <Text  style={{textAlign: 'center', fontSize: 15}} > Welcome {user.name} </Text>
+    <Text  style={{textAlign: 'center', fontSize: 15}} > Tja,  {user.name} </Text>
     ) : (null)}
       <Button
         title="Extend Collection"
