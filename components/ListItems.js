@@ -1,7 +1,7 @@
 import { ListItem, Avatar } from "react-native-elements";
 
 import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert} from "react-native";
 import lightBulb from "../assets/lightBulb.png";
 import google from "../assets/google.png";
 import addBook from "../assets/addBook.png";
@@ -41,7 +41,7 @@ export default function ListItems() {
       </ListItem>
       ) : (
 
-      <ListItem style={stylo.body} >
+      <ListItem style={stylo.body} onPress={Alert.alert("click on users")} >
         <LinearGradient
           // Button Linear Gradient
           colors={[ "#DBD65C", "#5614B0" ]}
@@ -50,7 +50,7 @@ export default function ListItems() {
         <Avatar source={addBook} />
         <ListItem.Content  >
           <ListItem.Title style={stylo.bg}>Books Disbaled</ListItem.Title>
-          <ListItem.Subtitle style={{color: "white"}} >Set a User to continue..</ListItem.Subtitle>
+          <ListItem.Subtitle style={{color: "white"}} >Set a user to continue...</ListItem.Subtitle>
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
