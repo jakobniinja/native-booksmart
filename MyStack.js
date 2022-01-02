@@ -18,7 +18,7 @@ import CreateUserScreen from "./screens/CreateUserScreen"
 
 export default function MyStack() {
   const scheme = useColorScheme();
-  const [book1, setBook1] = useState("jakobs book")
+  const [book1, setBook1] = useState({});
   const [book2, setBook2] = useState({
    name: "Update Book",
    code: "#ff00ff"
