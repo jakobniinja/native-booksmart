@@ -44,7 +44,7 @@ const UserScreen = (props) => {
           marginTop: 15,
           marginBottom: 12
         }}
-        title="Create User"
+        title="skapa ny"
       />
       {users.map((user) => {
         return (
