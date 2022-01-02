@@ -1,8 +1,43 @@
-import React from 'react'
+import React, { useContext, useEffect,  useState} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import SortableGridview from 'react-native-sortable-gridview'
+import AppContext from "../Context/AppContext"
+import firebase from "../Firebase"
+export default function BookGrid(props) {
+    const {book1, setBook1, user } = useContext(AppContext)
+    
+  const [users, setUsers] = useState([]);
+  const [userId, setUserId] = useState("")
+    const getBookById = async (id) => {
+      
+    const dbRef = firebase.db.collection("users").doc(id).collection("books");
+    const doc = await dbRef.get();
+    const user = doc.data();
+    console.log(...user,  doc.id)
+    // setBook1({ ...user, id: doc.id });
+    }
+    useEffect(() => {
 
-export default function BookGrid() {
+    // getBookById(props.route.params.userId);
+    }, []) 
+    
+    useEffect(() => {
+    firebase.db.collection("users").onSnapshot((querySnapshot) => {
+      const users = [];
+      querySnapshot.docs.forEach((doc) => {
+        const { name, age, occupation } = doc.data();
+        users.push({
+          id: doc.id,
+          name,
+          age,
+          occupation,
+        });
+      });
+      setUsers(users);
+    });
+    }, [])
+    
+    console.log(users)
     return (
         <SortableGridview
   data={[

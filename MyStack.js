@@ -23,8 +23,9 @@ export default function MyStack() {
    name: "Update Book",
    code: "#ff00ff"
   })
+  const [user, setUser] = useState({name: 'guest', age: '124', occupaction : ''});
 
-  const allValues = React.useMemo(() => ({book1, setBook1, book2, setBook2}), [book1, setBook1, book2, setBook2]);
+  const allValues = React.useMemo(() => ({book1, setBook1, book2, setBook2, user, setUser}), [book1, setBook1, book2, setBook2, user, setUser]);
 
   const MyTheme = {
     ...DarkTheme,
@@ -45,12 +46,12 @@ export default function MyStack() {
               <Stack.Screen
         name="UsersList"
         component={UsersList}
-        options={{ title: "Users List" }}
+        options={{ title: "Användare" }}
       />
       <Stack.Screen
         name="CreateUserScreen"
         component={CreateUserScreen}
-        options={{ title: "Create a New User" }}
+        options={{ title: "Skapa" }}
       />
       <Stack.Screen
         name="UserDetailScreen"
