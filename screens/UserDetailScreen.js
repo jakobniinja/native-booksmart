@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   ScrollView,
   Button,
@@ -7,20 +7,17 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
 
+import AppContext from "../Context/AppContext"
 import firebase from "../Firebase";
 
 const UserDetailScreen = (props) => {
-  const initialState = {
-    id: "",
-    name: "",
-    age: "",
-    occupation: "",
-  };
 
-  const [user, setUser] = useState(initialState);
+  const {user, setUser} = useContext(AppContext)
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation(); 
 
   const handleTextChange = (value, prop) => {
     setUser({ ...user, [prop]: value });
@@ -65,8 +62,6 @@ const UserDetailScreen = (props) => {
       age: user.age,
       occupation: user.occupation,
     });
-    setUser(initialState);
-    props.navigation.navigate("UsersList");
   };
 
   useEffect(() => {
@@ -110,15 +105,24 @@ const UserDetailScreen = (props) => {
           onChangeText={(value) => handleTextChange(value, "occupation")}
         />
       </View>
-      <View style={styles.btn}>
-        <Button
-          title="Delete"
-          onPress={() => openConfirmationAlert()}
-          color="#E37399"
+      <View>
+        <Button 
+style={styles.btn}
+        title="Set to active user" onPress={() =>  {
+          updateUser();
+          setUser({name: user.name, age: user.age, occupation: user.occupation})
+      navigation.navigate("UsersList")
+      }} color="#8a2eb2" 
+        
         />
       </View>
-      <View>
-        <Button title="Update" onPress={() => updateUser()} color="#19AC52" />
+      <View style={styles.btn}>
+        <Button
+          style={styles.btn}        
+          title="Delete"
+          onPress={() => openConfirmationAlert()}
+          color="gray"
+        />
       </View>
     </ScrollView>
   );
@@ -146,7 +150,8 @@ const styles = StyleSheet.create({
     borderBottomColor: "#cccccc",
   },
   btn: {
-    marginBottom: 7,
+    marginBottom: 17,
+    marginTop: 10
   },
 });
 

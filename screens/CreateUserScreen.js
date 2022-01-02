@@ -73,7 +73,7 @@ const AddUserScreen = (props) => {
       </View>
 
       <View style={styles.button}>
-        <Button title="Save User" onPress={() => saveNewUser()} />
+        <Button title="spara" onPress={() => saveNewUser()} />
       </View>
     </ScrollView>
   );
