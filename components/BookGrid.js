@@ -5,9 +5,10 @@ import AppContext from "../Context/AppContext";
 import firebase from "../Firebase";
 export default function BookGrid(props) {
   const { book1, setBook1, user } = useContext(AppContext);
+  const books = [];
 
   const [currentUser, setCurrentUser] = useState([]);
-  const [userId, setUserId] = useState({});
+  const [book2, setBook2] = useState([]);
   const getBookById = async (id) => {
     const dbRef = firebase.db.collection("users").doc(id).collection("books");
     const doc = await dbRef.get();
@@ -15,10 +16,6 @@ export default function BookGrid(props) {
     // console.log(...user,  doc.id)
     setBook1({ ...user, id: doc.id });
   };
-  useEffect(() => {
-    //  (Object.keys(users).forEach(i =>console.log(i)))
-    // getBookById(props.route.params);
-  }, [user]);
 
   useEffect(() => {
     firebase.db.collection("users").onSnapshot((querySnapshot) => {
@@ -36,30 +33,31 @@ export default function BookGrid(props) {
       });
       setCurrentUser(...currentUser);
     });
-
-    // firebase.db
-    //   .collection("users")
-    //   .doc(currentUser.id)
-    //   .collection("books")
-    //   .doc("THXy2jcgBZSMM1ZlWop0")
-    //   .onSnapshot((querySnapshot) => {
-    //     const book = [];
-    //     querySnapshot.docs.forEach((doc) => {
-    //       const { ImageURL, lastRead, pages, points, title } = doc.data();
-    //       const book = [];
-
-    //       book.push({
-    //         id: doc.id,
-    //         ImageURL,
-    //         lastRead,
-    //         pages,
-    //         points,
-    //         title,
-    //       });
-    //     });
-    //     console.log(book)
-    //   });
   }, []);
+  useEffect(() => {
+    if (currentUser.id) {
+      firebase.db
+        .collection("users")
+        .doc(currentUser.id)
+        .collection("books")
+        .onSnapshot((querySnapshot) => {
+          const book = [];
+          querySnapshot.docs.forEach((doc) => {
+            const { ImageURL, lastRead, pages, points, title } = doc.data();
+
+            books.push({
+              id: doc.id,
+              ImageURL,
+              lastRead,
+              pages,
+              points,
+              title,
+            });
+            console.log(books);
+          });
+        });
+    }
+  }, [currentUser]);
 
   console.log(currentUser.id);
   return (
@@ -77,7 +75,9 @@ export default function BookGrid(props) {
           color: "#fff",
         },
       ]}
-      lockData={[{ name: "book 2 " }, { name: "book 4 " }]}
+      lockData={books.forEach((book) => {
+        [{ name: `${book.title}`, backgroundColor: "#09f", color: "#fff" }];
+      })}
       onDragStart={() => {
         console.log("LockItemCoverLayout onDragStart");
       }}
@@ -85,6 +85,7 @@ export default function BookGrid(props) {
         console.log("LockItemCoverLayout onDragRelease", data);
       }}
       renderItem={(item, index) => {
+        // console.log(books);
         return (
           <View
             uniqueKey={item.name}
@@ -93,9 +94,16 @@ export default function BookGrid(props) {
               Alert.alert(`On Tap ${item.name}!`);
             }}
           >
-            <Text style={[styles.text, { color: item.color }]}>
+            {/* <Text style={[styles.text, { color: item.color }]}>
               {item.name}
-            </Text>
+            </Text> */}
+            {books
+              ? books.map((book) => {
+                  <Text style={[styles.text, { color: item.color }]}>
+                    {books.title} tja
+                  </Text>;
+                })
+              : null}
           </View>
         );
       }}
