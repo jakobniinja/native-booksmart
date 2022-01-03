@@ -22,6 +22,7 @@ const UserScreen = (props) => {
           age,
           occupation,
         });
+
       });
       setUsers(users);
     });
