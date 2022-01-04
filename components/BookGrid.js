@@ -5,7 +5,7 @@ import AppContext from "../Context/AppContext";
 import firebase from "../Firebase";
 export default function BookGrid(props) {
   const { book1, setBook1, user } = useContext(AppContext);
-  const [allBooks, setAllBooks] = useState([])
+  const [allBooks, setAllBooks] = useState([]);
   const books = [];
 
   const [currentUser, setCurrentUser] = useState([]);
@@ -48,68 +48,97 @@ export default function BookGrid(props) {
           });
           setAllBooks(books);
         });
-        
     }
   }, [currentUser]);
 
   console.log(currentUser.id);
   return (
     <SortableGridview
-  data={[
-    {name: `124`, backgroundColor: '#09f', color: '#fff'},
-    {name: 'book 2', backgroundColor: '#rgba(255, 216, 58, 1)', color: '#333'},
-    {name: 'book 3', backgroundColor: '#rgba(0, 222, 144, 1)', color: '#fff'},
-  ]}
-  lockData={[
-    {name: 'book 2 '},
-    {name: 'book 4 '},
-  ]}
-  onDragStart={() => {
-    console.log('LockItemCoverLayout onDragStart');
-  }}
-  onDragRelease={(data) => {
-    console.log('LockItemCoverLayout onDragRelease', data);
-  }}
-  renderItem={(item, index) => {
-    return (
-      <View
-        uniqueKey={item.name}
-        style={[styles.item, {backgroundColor: item.backgroundColor}]}
-        onTap={() => {
-          Alert.alert(`On Tap ${item.name}!`);
-        }}
-      >
-        <Text style={[styles.text, {color: item.color}]}>{item.name}</Text>
-      </View>
-    )
-  }}
-  renderLockItem={(item, index) => {
-    return (
-      <View
-        uniqueKey={`${item.name}`}
-        style={styles.lock}
-        onTap={() => {
-          Alert.alert(`On Tap ${item.name}!`);
-        }}
-      >
-        <Text>{item.name}</Text>
-      </View>
-    )
-  }}
-  lockItemCoverStyle={{marginTop: -8, marginLeft: -8
-}}
-  renderLockItemCover={(item, index) => {
-    return (
-      <TouchableOpacity
-        style={styles.cover}
-        onPress={() => {
-          Alert.alert(`On Press ${item.name} Cover!`);
-        }}
-      >
-      </TouchableOpacity>
-    )
-  }}
-/>
+      data={[
+        { name: ` 124`, backgroundColor: "#09f", color: "#fff" },
+        {
+          name: "book 2",
+          backgroundColor: "#rgba(255, 216, 58, 1)",
+          color: "#333",
+        },
+        {
+          name: "book 3",
+          backgroundColor: "#rgba(0, 222, 144, 1)",
+          color: "#fff",
+        },
+      ]}
+      lockData={
+              allBooks && allBooks.length >= 1 ? (
+                [ allBooks.map((book, index) => (
+                  {name: book.title}
+                )) ]
+              ) : (
+                  [{name: "book 2"}, {name: "book 42"}]
+              )}
+
+        
+      onDragStart={() => {
+        console.log("LockItemCoverLayout onDragStart");
+      }}
+      onDragRelease={(data) => {
+        console.log("LockItemCoverLayout onDragRelease", data);
+      }}
+      renderItem={(item, index) => {
+        return (
+          <View
+            uniqueKey={item.name}
+            style={[styles.item, { backgroundColor: item.backgroundColor }]}
+            onTap={() => {
+              Alert.alert(`On Tap ${item.name}!`);
+            }}
+          >
+            <Text style={[styles.text, { color: item.color }]}>
+              {item.name}
+            </Text>
+          </View>
+        );
+      }}
+      renderLockItem={(item, index) => {
+        return (
+          <>
+            {allBooks.length >= 1 ? (
+              allBooks.map((book, index) => (
+                <View
+                  uniqueKey={index}
+                  style={styles.lock}
+                  onTap={() => {
+                    Alert.alert(`On Tap ${book.title}!`);
+                  }}
+                >
+                  <Text> {index} </Text>
+                </View>
+              ))
+            ) : (
+              <View
+                uniqueKey={`${item.name}`}
+                style={styles.lock}
+                onTap={() => {
+                  Alert.alert(`On Tap ${item.name}!`);
+                }}
+              >
+                <Text>{item.name}</Text>
+              </View>
+            )}
+          </>
+        );
+      }}
+      lockItemCoverStyle={{ marginTop: -8, marginLeft: -8 }}
+      renderLockItemCover={(item, index) => {
+        return (
+          <TouchableOpacity
+            style={styles.cover}
+            onPress={() => {
+              Alert.alert(`On Press ${item.name} Cover!`);
+            }}
+          ></TouchableOpacity>
+        );
+      }}
+    />
   );
 }
 
