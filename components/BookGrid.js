@@ -5,17 +5,10 @@ import AppContext from "../Context/AppContext";
 import firebase from "../Firebase";
 export default function BookGrid(props) {
   const { book1, setBook1, user } = useContext(AppContext);
+  const [allBooks, setAllBooks] = useState([])
   const books = [];
 
   const [currentUser, setCurrentUser] = useState([]);
-  const [book2, setBook2] = useState([]);
-  const getBookById = async (id) => {
-    const dbRef = firebase.db.collection("users").doc(id).collection("books");
-    const doc = await dbRef.get();
-    const user = doc.data();
-    // console.log(...user,  doc.id)
-    setBook1({ ...user, id: doc.id });
-  };
 
   useEffect(() => {
     firebase.db.collection("users").onSnapshot((querySnapshot) => {
@@ -41,7 +34,6 @@ export default function BookGrid(props) {
         .doc(currentUser.id)
         .collection("books")
         .onSnapshot((querySnapshot) => {
-          const book = [];
           querySnapshot.docs.forEach((doc) => {
             const { ImageURL, lastRead, pages, points, title } = doc.data();
 
@@ -53,13 +45,19 @@ export default function BookGrid(props) {
               points,
               title,
             });
-            console.log(books);
           });
+          setAllBooks(books);
         });
+        
     }
   }, [currentUser]);
 
   console.log(currentUser.id);
+  // books.forEach((book) => console.log(`${currentUser.name} has these books  ${book.title}`))
+  console.log(allBooks.forEach((book, index) => {
+    console.log("book", book.title, " index:", index)
+    console.log(allBooks.length)
+  }))
   return (
     <SortableGridview
       data={[
@@ -73,7 +71,7 @@ export default function BookGrid(props) {
           name: "book 3",
           backgroundColor: "#rgba(0, 222, 144, 1)",
           color: "#fff",
-        },
+        }
       ]}
       lockData={books.forEach((book) => {
         [{ name: `${book.title}`, backgroundColor: "#09f", color: "#fff" }];
@@ -85,7 +83,7 @@ export default function BookGrid(props) {
         console.log("LockItemCoverLayout onDragRelease", data);
       }}
       renderItem={(item, index) => {
-        // console.log(books);
+
         return (
           <View
             uniqueKey={item.name}
@@ -97,13 +95,16 @@ export default function BookGrid(props) {
             {/* <Text style={[styles.text, { color: item.color }]}>
               {item.name}
             </Text> */}
-            {books
-              ? books.map((book) => {
-                  <Text style={[styles.text, { color: item.color }]}>
-                    {books.title} tja
-                  </Text>;
-                })
-              : null}
+            {allBooks.length >=1
+              ? (
+              allBooks.map((book, index) => (
+                <Text key={index} style={{color: "black"}} >
+              {index}
+              </Text>))
+              ) :(<Text style={{color: "gray"}} >
+
+                shu Bror
+              </Text>)}
           </View>
         );
       }}
