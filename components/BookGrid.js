@@ -69,11 +69,12 @@ export default function BookGrid(props) {
       ]}
       lockData={
               allBooks && allBooks.length >= 1 ? (
-                [ allBooks.map((book, index) => (
-                  {name: book.title}
-                )) ]
+                 allBooks.map((book, index) => (
+                   [
+                  {name: allBooks[index].title}]
+                )) 
               ) : (
-                  [{name: "book 2"}, {name: "book 42"}]
+                  [{name: 'book 2'}, {name: 'book 2'}, {name: 'book 8'}]
               )}
 
         
@@ -107,10 +108,12 @@ export default function BookGrid(props) {
                   uniqueKey={index}
                   style={styles.lock}
                   onTap={() => {
-                    Alert.alert(`On Tap ${book.title}!`);
+                    Alert.alert(`On Tap ${allBooks[index].title}!`);
                   }}
                 >
-                  <Text> {index} </Text>
+                  <Text  style={styles.text} onPress={() => {
+                    console.log(allBooks[index].title)
+                  }} key={index} > {allBooks[index].title} </Text>
                 </View>
               ))
             ) : (
@@ -148,6 +151,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   item: {
+    display: "flex",
+    flexDirection: 'row',
     width: 50,
     borderRadius: 12,
     height: 70,
@@ -162,6 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     height: 70,
     backgroundColor: "gray",
+    color:'#fff',
     alignItems: "center",
     justifyContent: "center",
     marginLeft: "28%",
