@@ -52,7 +52,7 @@ export default function BookGrid(props) {
   }, [currentUser]);
 
   console.log(currentUser.id);
-  console.log(allBooks)
+  console.log(allBooks);
   return (
     <SortableGridview
       data={[
@@ -69,16 +69,12 @@ export default function BookGrid(props) {
         },
       ]}
       lockData={
-              allBooks && allBooks.length >= 1 ? (
-                 allBooks.map((book, index) => (
-                   [
-                  {name: allBooks[index].title}]
-                )) 
-              ) : (
-                  [{name: 'book 2'}, {name: '6'}]
-              )}
-
-        
+        allBooks && allBooks.length >= 1
+          ? allBooks.map((book, index) => [
+              { name: allBooks[index].title, index: allBooks[index].id },
+            ])
+          : [{ name: "book 7" }]
+      }
       onDragStart={() => {
         console.log("LockItemCoverLayout onDragStart");
       }}
@@ -88,7 +84,7 @@ export default function BookGrid(props) {
       renderItem={(item, index) => {
         return (
           <View
-            uniqueKey={item.name}
+            key={[item.name]}
             style={[styles.item, { backgroundColor: item.backgroundColor }]}
             onTap={() => {
               Alert.alert(`On Tap ${item.name}!`);
@@ -100,21 +96,26 @@ export default function BookGrid(props) {
           </View>
         );
       }}
-      renderLockItem={(item, index) => {
+      renderLockItem={(item) => {
         return (
-          <>
+          <View style={styles.top}>
             {allBooks.length >= 1 ? (
-              allBooks.map((book, index) => (
+              allBooks.map((book, idx) => (
                 <View
-                  uniqueKey={index}
+                  key={[item.index]}
                   style={styles.lock}
                   onTap={() => {
-                    Alert.alert(`On Tap ${allBooks[index].title}!`);
+                    Alert.alert(`On Tap ${allBooks[idx].title}!`);
                   }}
                 >
-                  <Text  style={styles.text} onPress={() => {
-                    console.log(allBooks[index].title)
-                  }} key={index} > {allBooks[index].title} </Text>
+                  <Text
+                    style={styles.text}
+                    onPress={() => {
+                      console.log(allBooks[idx].title);
+                    }}
+                  >
+                    {allBooks[idx].title}
+                  </Text>
                 </View>
               ))
             ) : (
@@ -128,7 +129,7 @@ export default function BookGrid(props) {
                 <Text>{item.name}</Text>
               </View>
             )}
-          </>
+          </View>
         );
       }}
       lockItemCoverStyle={{ marginTop: -8, marginLeft: -8 }}
@@ -158,15 +159,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: "28%",
+    marginLeft: "36%",
     marginTop: "20%",
+  },
+  top: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 'auto'
   },
   lock: {
     width: 50,
     borderRadius: 12,
     height: 70,
     backgroundColor: "gray",
-    color:'#fff',
+    color: "#fff",
     alignItems: "center",
     justifyContent: "center",
     marginLeft: "28%",
