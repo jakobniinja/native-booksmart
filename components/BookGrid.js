@@ -52,6 +52,7 @@ export default function BookGrid(props) {
   }, [currentUser]);
 
   console.log(currentUser.id);
+  console.log(allBooks)
   return (
     <SortableGridview
       data={[
@@ -74,7 +75,7 @@ export default function BookGrid(props) {
                   {name: allBooks[index].title}]
                 )) 
               ) : (
-                  [{name: 'book 2'}, {name: 'book 2'}, {name: 'book 8'}]
+                  [{name: 'book 2'}, {name: '6'}]
               )}
 
         
@@ -151,8 +152,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   item: {
-    display: "flex",
-    flexDirection: 'row',
     width: 50,
     borderRadius: 12,
     height: 70,
