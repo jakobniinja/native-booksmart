@@ -110,7 +110,6 @@ export default function BookGrid(props) {
             {allBooks.length >= 1 ? (
               allBooks.map((book, idx) => (
                   <View
-                    key={[item.index]}
                     style={{
                       width: width / 4 - 10,
                       borderRadius: 12,
@@ -129,7 +128,7 @@ export default function BookGrid(props) {
                     <Text
                       style={styles.text}
                       onPress={() => {
-                        console.log(allBooks[idx].title);
+                        console.log(allBooks[index].title);
                       }}
                     >
                       {allBooks[idx].title}
@@ -185,7 +184,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     width: "345%",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
+    marginLeft: '-4%'
   },
   lock: {
     width: 80,
