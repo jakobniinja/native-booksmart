@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import SortableGridview from "react-native-sortable-gridview";
 import AppContext from "../Context/AppContext";
 import firebase from "../Firebase";
@@ -7,7 +15,7 @@ export default function BookGrid(props) {
   const { book1, setBook1, user } = useContext(AppContext);
   const [allBooks, setAllBooks] = useState([]);
   const books = [];
-
+  var width = Dimensions.get("window").width;
   const [currentUser, setCurrentUser] = useState([]);
 
   useEffect(() => {
@@ -101,22 +109,32 @@ export default function BookGrid(props) {
           <View style={styles.top}>
             {allBooks.length >= 1 ? (
               allBooks.map((book, idx) => (
-                <View
-                  key={[item.index]}
-                  style={styles.lock}
-                  onTap={() => {
-                    Alert.alert(`On Tap ${allBooks[idx].title}!`);
-                  }}
-                >
-                  <Text
-                    style={styles.text}
-                    onPress={() => {
-                      console.log(allBooks[idx].title);
+                  <View
+                    key={[item.index]}
+                    style={{
+                      width: width / 4 - 10,
+                      borderRadius: 12,
+                      margin: 3,
+                      height: 70,
+                      backgroundColor: "gray",
+                      color: "#fff",
+                      textAlign: "center",
+                      justifyContent: "center",
+                      marginBottom: 20,
+                    }}
+                    onTap={() => {
+                      Alert.alert(`On Tap ${allBooks[idx].title}!`);
                     }}
                   >
-                    {allBooks[idx].title}
-                  </Text>
-                </View>
+                    <Text
+                      style={styles.text}
+                      onPress={() => {
+                        console.log(allBooks[idx].title);
+                      }}
+                    >
+                      {allBooks[idx].title}
+                    </Text>
+                  </View>
               ))
             ) : (
               <View
@@ -153,31 +171,30 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   item: {
-    width: 50,
+    width: 80,
     borderRadius: 12,
     height: 70,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: "36%",
+    marginLeft: "16%",
     marginTop: "20%",
   },
   top: {
-    display: "flex",
     flexDirection: "row",
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 'auto'
+    flexWrap: "wrap",
+    width: "345%",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   lock: {
-    width: 50,
+    width: 80,
+    margin: 8,
     borderRadius: 12,
     height: 70,
     backgroundColor: "gray",
     color: "#fff",
-    alignItems: "center",
+    textAlign: "center",
     justifyContent: "center",
-    marginLeft: "28%",
-    marginTop: "20%",
   },
 });
