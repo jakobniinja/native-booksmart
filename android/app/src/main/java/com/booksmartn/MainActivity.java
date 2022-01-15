@@ -1,4 +1,4 @@
-package com.booksmart2;
+package com.booksmartn;
 
 import android.os.Build;
 import android.os.Bundle;
