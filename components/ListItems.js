@@ -1,34 +1,21 @@
-import { ListItem, Avatar } from "react-native-elements";
-
-import React, { useContext } from "react";
-import { View, Text, StyleSheet, Alert} from "react-native";
-import lightBulb from "../assets/lightBulb.png";
-import google from "../assets/google.png";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Avatar, ListItem } from "react-native-elements";
 import addBook from "../assets/addBook.png";
+import folder from "../assets/folder.png";
 import leaderBoard from "../assets/leaderBoard.png";
+import lightBulb from "../assets/lightBulb.png";
 import searchIcon from "../assets/searchIcon.png";
 import { useNavigation } from "@react-navigation/native";
-import { makeStyles } from "@material-ui/core";
-import { LinearGradient } from "expo-linear-gradient";
-import { useTheme } from '@react-navigation/native';
-import users from "../assets/users.png"
-import folder from "../assets/folder.png"
-import AppContext from "../Context/AppContext";
 
 export default function ListItems() {
-  const navigation = useNavigation();
-  const {colors } = useTheme();
-  const {user} = useContext(AppContext)
+    const navigation = useNavigation();
   return (
     <View style={{justifyContent:"center", alignItems: "center",  }} >
 
-
-      {user.name != 'guest' ? (
-
-
-      <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
-        <LinearGradient
-          // Button Linear Gradient
+      <ListItem style={stylo.body} >
+            <LinearGradient
           colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
@@ -39,27 +26,10 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
-      ) : (
-
-      <ListItem style={stylo.body} onPress={Alert.alert("click on users")} >
-        <LinearGradient
-          // Button Linear Gradient
-          colors={[ "#DBD65C", "#5614B0" ]}
-          style={stylo.background}
-        ></LinearGradient>
-        <Avatar source={addBook} />
-        <ListItem.Content  >
-          <ListItem.Title style={stylo.bg}>Books Disbaled</ListItem.Title>
-          <ListItem.Subtitle style={{color: "white"}} >Set a user to continue...</ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron color="white" />
-      </ListItem>
-
-      )}
 
 
       <ListItem style={stylo.body}>
-        <LinearGradient
+    <LinearGradient
           colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
@@ -73,9 +43,8 @@ export default function ListItems() {
 
 
       <ListItem style={stylo.body}>
-        <LinearGradient
-          // Button Linear Gradient
-          colors={["#5614B0", "#DBD65C"]}
+            <LinearGradient
+          colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={leaderBoard} />
@@ -87,8 +56,7 @@ export default function ListItems() {
       </ListItem>
 
       <ListItem style={stylo.body}>
-        <LinearGradient
-          // Button Linear Gradient
+            <LinearGradient
           colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
@@ -99,13 +67,13 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
-      <ListItem style={stylo.body} onPress={() => navigation.navigate("UsersList")}>
-        <LinearGradient
+      <ListItem style={stylo.body} onPress={() => navigation.navigate('UserAccounts')}>
+            <LinearGradient
           colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={folder} />
-        <ListItem.Content  >
+        <ListItem.Content   >
           <ListItem.Title style={stylo.bg}>Users</ListItem.Title>
           <ListItem.Subtitle style={{color: "white"}} >save data and keep it</ListItem.Subtitle>
         </ListItem.Content>
