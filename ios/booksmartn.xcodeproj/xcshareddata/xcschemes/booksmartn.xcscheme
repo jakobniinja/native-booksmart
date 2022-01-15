@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "booksmart2.app"
-               BlueprintName = "booksmart2"
-               ReferencedContainer = "container:booksmart2.xcodeproj">
+               BuildableName = "booksmartn.app"
+               BlueprintName = "booksmartn"
+               ReferencedContainer = "container:booksmartn.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "booksmart2Tests.xctest"
-               BlueprintName = "booksmart2Tests"
-               ReferencedContainer = "container:booksmart2.xcodeproj">
+               BuildableName = "booksmartnTests.xctest"
+               BlueprintName = "booksmartnTests"
+               ReferencedContainer = "container:booksmartn.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "booksmart2.app"
-            BlueprintName = "booksmart2"
-            ReferencedContainer = "container:booksmart2.xcodeproj">
+            BuildableName = "booksmartn.app"
+            BlueprintName = "booksmartn"
+            ReferencedContainer = "container:booksmartn.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "booksmart2.app"
-            BlueprintName = "booksmart2"
-            ReferencedContainer = "container:booksmart2.xcodeproj">
+            BuildableName = "booksmartn.app"
+            BlueprintName = "booksmartn"
+            ReferencedContainer = "container:booksmartn.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

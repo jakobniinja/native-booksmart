@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import {db} from "../Firebase"
 import {
   Button,
   View,
@@ -7,19 +8,32 @@ import {
   ScrollView,
 } from "react-native";
 
-import firebase from "../Firebase";
+import AppContext from "../context/AppContext"
 
-const AddUserScreen = (props) => {
+
+import{
+    addDoc,
+    getDocs,
+    collection
+} from "firebase/firestore";
+const CreateUser= (props) => {
   const initalState = {
     name: "",
     age: "",
     occupation: "",
   };
+  
+  const {setName, name} = useContext(AppContext)
 
   const [state, setState] = useState(initalState);
+  const usersCollectionRef = collection(db, "users");
 
   const handleChangeText = (value, name) => {
     setState({ ...state, [name]: value });
+  }
+
+  const createUser = async () => {
+    await addDoc(usersCollectionRef, { name: state.name, age: Number(state.age), occupation: state.occupation  });
   };
 
   const saveNewUser = async () => {
@@ -28,13 +42,9 @@ const AddUserScreen = (props) => {
     } else {
 
       try {
-        await firebase.db.collection("users").add({
-          name: state.name,
-          age: state.age,
-          occupation: state.occupation,
-        });
+          createUser();
 
-        props.navigation.navigate("UsersList");
+        props.navigation.navigate("UserAccounts");
       } catch (error) {
         console.log(error)
       }
@@ -43,7 +53,6 @@ const AddUserScreen = (props) => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Name Input */}
       <View style={styles.inputGroup}>
         <TextInput
           placeholder="fullName"
@@ -63,7 +72,6 @@ const AddUserScreen = (props) => {
         />
       </View>
 
-      {/* Input */}
       <View style={styles.inputGroup}>
         <TextInput
           placeholder="occupation"
@@ -102,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddUserScreen;
+export default CreateUser;

@@ -9,45 +9,36 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
+import { doc, collection, getDocs,  updateDoc, deleteDoc } from "firebase/firestore";
+import AppContext from "../context/AppContext";
+import { db } from "../Firebase";
 
-import AppContext from "../Context/AppContext"
-import firebase from "../Firebase";
-
-const UserDetailScreen = (props) => {
-
-  const {user, setUser} = useContext(AppContext)
+const AccountDetails = (props) => {
+  const [users, setUsers] = useState([]);
+  const { user, setUser } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
+  const usersCollectionRef = collection(db, "users");
   const handleTextChange = (value, prop) => {
     setUser({ ...user, [prop]: value });
   };
 
-  const getUserById = async (id) => {
-    const dbRef = firebase.db.collection("users").doc(id);
-    const doc = await dbRef.get();
-    const user = doc.data();
-    setUser({ ...user, id: doc.id });
-    setLoading(false);
-  };
-
   const deleteUser = async () => {
-    setLoading(true)
-    const dbRef = firebase.db
-      .collection("users")
-      .doc(props.route.params.userId);
-    await dbRef.delete();
-    setLoading(false)
-    props.navigation.navigate("UsersList");
+    setLoading(true);
+    const userDoc = doc(db, "users", props.route.params.userId);
+    await deleteDoc(userDoc);
+    setLoading(false);
+    props.navigation.navigate("UserAccounts");
   };
 
   const openConfirmationAlert = () => {
     Alert.alert(
-      "Removing the User",
-      "Are you sure?",
+      `Ta bort ${user.name}` ,
+      "Är du säker?",
       [
-        { text: "Yes", onPress: () => deleteUser() },
-        { text: "No", onPress: () => console.log("canceled") },
+        { text: "Nej", onPress: () => console.log("canceled") },
+        { text: "Ja", onPress: () => deleteUser() },
       ],
       {
         cancelable: true,
@@ -55,18 +46,31 @@ const UserDetailScreen = (props) => {
     );
   };
 
-  const updateUser = async () => {
-    const userRef = firebase.db.collection("users").doc(user.id);
-    await userRef.set({
-      name: user.name,
-      age: user.age,
-      occupation: user.occupation,
+  const getUsers = async () => {
+    const data = await getDocs(usersCollectionRef);
+
+    data.docs.map((doc) => {
+      const { name, age, occupation } = doc.data();
+      if (doc.id == props.route.params.userId) {
+        setUser({ name: name, age: age, occupation: occupation });
+      }
     });
   };
 
+  const updateUser = async (name, age, occupation) => {
+    const userRef = doc(usersCollectionRef, props.route.params.userId);
+        const newName = {name: name}
+        const newAge= { age: age };
+        const newOccupation = {occupation: occupation}
+    await updateDoc(userRef, newName, newAge, newOccupation);
+
+
+  };
+
   useEffect(() => {
-    getUserById(props.route.params.userId);
-  }, []);
+    getUsers();
+    setLoading(false);
+  }, [loading]);
 
   if (loading) {
     return (
@@ -80,8 +84,7 @@ const UserDetailScreen = (props) => {
     <ScrollView style={styles.container}>
       <View>
         <TextInput
-          placeholder="Name"
-          autoCompleteType="username"
+          placeholder="name"
           style={styles.inputGroup}
           value={user.name}
           onChangeText={(value) => handleTextChange(value, "name")}
@@ -89,7 +92,6 @@ const UserDetailScreen = (props) => {
       </View>
       <View>
         <TextInput
-          autoCompleteType="age"
           placeholder="age"
           style={styles.inputGroup}
           value={user.age}
@@ -99,26 +101,25 @@ const UserDetailScreen = (props) => {
       <View>
         <TextInput
           placeholder="occupation"
-          autoCompleteType="job"
           style={styles.inputGroup}
           value={user.occupation}
           onChangeText={(value) => handleTextChange(value, "occupation")}
         />
       </View>
       <View>
-        <Button 
-style={styles.btn}
-        title="Set to active user" onPress={() =>  {
-          updateUser();
-          setUser({name: user.name, age: user.age, occupation: user.occupation})
-      navigation.navigate("UsersList")
-      }} color="#8a2eb2" 
-        
+        <Button
+          style={styles.btn}
+          title="Set to active user"
+          onPress={() => {
+            updateUser(user.name, user.age, user.occupation);
+            navigation.navigate("UserAccounts");
+          }}
+          color="#8a2eb2"
         />
       </View>
       <View style={styles.btn}>
         <Button
-          style={styles.btn}        
+          style={styles.btn}
           title="Delete"
           onPress={() => openConfirmationAlert()}
           color="gray"
@@ -151,8 +152,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginBottom: 17,
-    marginTop: 10
+    marginTop: 10,
   },
 });
 
-export default UserDetailScreen;
+export default AccountDetails;
