@@ -14,7 +14,7 @@ export default function ListItems() {
   return (
     <View style={{justifyContent:"center", alignItems: "center",  }} >
 
-      <ListItem style={stylo.body} >
+      <ListItem style={stylo.body} onPress={() => navigation.navigate('Books')} >
             <LinearGradient
           colors={["#5614B0", "#DBD65C" ]}
           style={stylo.background}
