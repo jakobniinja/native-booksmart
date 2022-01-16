@@ -68,6 +68,9 @@ const AccountDetails = (props) => {
   };
 
   useEffect(() => {
+    updateUser();
+  }, [])
+  useEffect(() => {
     getUsers();
     setLoading(false);
   }, [loading]);
