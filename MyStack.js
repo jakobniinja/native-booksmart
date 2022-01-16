@@ -2,9 +2,10 @@ import {
     NavigationContainer
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React, { useState, useMemo} from "react";
+import React, { useState} from "react";
 import AppContext from "./context/AppContext";
 import AccountDetails from "./screens/AccountDetails";
+import Books from "./screens/Books";
 import CreateUser from "./screens/CreateUser";
 import Home from "./screens/Home";
 import UserAccounts from "./screens/UserAccounts";
@@ -25,6 +26,7 @@ export default function MyStack() {
         <Stack.Screen  name="UserAccounts" component={UserAccounts}   options={{headerTitleAlign: 'center',title: 'Användar Konton'}} />
       <Stack.Screen  name="CreateUser" component={CreateUser}   options={{headerTitleAlign: 'center',title: 'Skapa Konto'}} />
       <Stack.Screen  name="AccountDetails" component={AccountDetails}   options={{headerTitleAlign: 'center',title: 'Redigera Konto'}} />
+        <Stack.Screen  name="Books" component={Books}   options={{headerTitleAlign: 'center',title: 'Bibliotek'}} />
       </Stack.Navigator>
     </NavigationContainer>
     </AppContext.Provider>
