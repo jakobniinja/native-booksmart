@@ -13,12 +13,10 @@ import AppContext from "../Context/AppContext";
 export default function ListItems() {
   const { user } = useContext(AppContext);
   const navigation = useNavigation();
-  console.log(user.name)
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
-      <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
         {user.name!="guest" ? (
-          <>
+      <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
             <LinearGradient
               colors={["#5614B0", "#DBD65C"]}
               style={stylo.background}
@@ -31,9 +29,9 @@ export default function ListItems() {
               </ListItem.Subtitle>
             </ListItem.Content>
             <ListItem.Chevron color="white" />
-          </>
+      </ListItem>
         ) : (
-          <>
+      <ListItem style={stylo.body}  >
             <LinearGradient
               colors={["#5614B0", "#DBD65C"]}
               style={stylo.background}
@@ -46,9 +44,8 @@ export default function ListItems() {
               </ListItem.Subtitle>
             </ListItem.Content>
             <ListItem.Chevron color="white" />
-          </>
-        )}
       </ListItem>
+        )}
 
       <ListItem style={stylo.body}>
         <LinearGradient

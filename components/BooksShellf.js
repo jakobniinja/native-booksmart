@@ -42,19 +42,18 @@ const styles = StyleSheet.create({
 });
 
 export default function BookShelf() {
-//   const { user, setUser } = useContext(AppContext);
+  const { user, setUser } = useContext(AppContext);
   const navigation = useNavigation();
   
   useEffect(() => {
-    // setUser(user)
+    setUser(user)
   }, [])
 
   return (
     <>
-    {true ? (
-    <Text  style={{textAlign: 'center', fontSize: 15}} > Tja, 
-   anders 
-     {/* {user.name} */}
+    {user ? (
+    <Text  style={{textAlign: 'center', fontSize: 15}} > tja,   
+     {user.name}
       </Text>
     ) : (null)}
       <Button

@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
 import { doc, collection, getDocs,  updateDoc, deleteDoc } from "firebase/firestore";
-import AppContext from "../context/AppContext";
+import AppContext from "../Context/AppContext";
 import { db } from "../Firebase";
 
 const AccountDetails = (props) => {
@@ -52,7 +52,7 @@ const AccountDetails = (props) => {
     data.docs.map((doc) => {
       const { name, age, occupation } = doc.data();
       if (doc.id == props.route.params.userId) {
-        setUser({ name: name, age: age, occupation: occupation });
+        setUser({id:doc.id  , name: name, age: age, occupation: occupation,  });
       }
     });
   };
