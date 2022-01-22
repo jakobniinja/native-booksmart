@@ -13,20 +13,23 @@ import SortableGridview from "react-native-sortable-gridview";
 import AppContext from "../Context/AppContext";
 import { db } from "../Firebase";
 export default function BookGrid(props) {
-//   const { book1, setBook1, user, setUser } = useContext(AppContext);
   const [allBooks, setAllBooks] = useState([]);
-  const [users, setUsers] = useState([])
   const books = [];
   var width = Dimensions.get("window").width;
   const [currentUser, setCurrentUser] = useState([]);
-  
+  const [activeUser, ActiveUser] = useState([])
 
 
   useEffect(() => {
       const userCol = collection(db, "users");
           const getUser = async () => {
       const data = await getDocs(userCol);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    // data.docs.map((doc) => {
+    //   const { name, age, occupation } = doc.data();
+    //   if (name == user.name) {
+    //     setUser({ name: name, age: age, occupation: occupation });
+    //   }
+    // });
     };
     const q = query(collection(db, "users"));
     const unsubscribe = onSnapshot(q, () => {
@@ -77,9 +80,6 @@ export default function BookGrid(props) {
     // setUser(currentUser)  
   }, [])
 
-  console.log(currentUser.id);
-  console.log(allBooks);
-     console.log(users)
   return (
     <SortableGridview
       data={[
