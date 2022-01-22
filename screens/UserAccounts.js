@@ -18,7 +18,7 @@ import punk25 from "../assets/punk25.png";
 import punk40 from "../assets/punk40.png";
 import punk60 from "../assets/punk60.png";
 import { db } from "../Firebase";
-import AppContext from "../context/AppContext";
+import AppContext from "../Context/AppContext";
 import { ActivityIndicator, View } from "react-native";
 
 const UserAccounts = (props) => {
