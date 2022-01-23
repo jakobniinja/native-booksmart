@@ -11,9 +11,8 @@ import { doc, collection, addDoc } from "firebase/firestore";
 
 
 export default function AddBook() {
-
   
-
+  const [currId, setCurrId] = useState(1234-5678);
 
 const d = new Date();
   const [lastRead, setLastRead] = useState("12: 00")
@@ -29,29 +28,29 @@ const d = new Date();
 
   }, [])
 
+  useEffect(() => {
+    setCurrId(user.id)
+  }, []);
+  
+
   const navigation = useNavigation();
   const [number, setNumber] = useState(1)
 
   const [title, setTitle] = useState("Title")
   const [pages, setPages] = useState(0 )
+  const [imageUrl, setImageUrl] = useState("enter image");
   const [items, setItems] = React.useState([
     { name: `shu `, code: "#8a2be2" },
   ]);
   const {user} = useContext(Appcontext)
 
-  const usersCollectionRef = collection(db, "users", user.id);
-  const uC2 = collection(db, "users" );
 
-  const UpdateBook= async(name, age, occupation) => {
-    const userRef = doc(uC2,user.id , 'books');
-        const newName = {name: name}
-        const newAge= { age: age };
-        const newOccupation = {occupation: occupation}
-    await  addDoc(userRef, newName, newAge, newOccupation);
+  const UpdateBook= async() => {
+  const booksCollectionRef = collection(db, "users", currId, "books");
+    await addDoc(booksCollectionRef , {title: title, pages:pages , points: pages/3, lastRead: lastRead, imageURL: imageUrl } );
+    navigation.navigate('Books')
   }
     
-    useNavigation('Books')
-    ;
   
   return (
     <>
@@ -67,6 +66,13 @@ const d = new Date();
     isRequired
     value={pages}
     onChangeText={(pages) =>  setPages(pages)}
+    asterik
+  />
+    <FormItem
+    placeholder="Image url"
+    isRequired
+    value={imageUrl}
+    onChangeText={(text) => setImageUrl(text)}
     asterik
   />
     <FormItem
