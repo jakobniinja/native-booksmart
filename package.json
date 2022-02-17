@@ -12,6 +12,7 @@
     "@material-ui/core": "^4.12.3",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
+    "axios": "^0.26.0",
     "expo": "~44.0.2",
     "expo-linear-gradient": "^11.0.0",
     "expo-splash-screen": "~0.14.1",
@@ -23,9 +24,13 @@
     "react-native-elements": "^3.4.2",
     "react-native-form-component": "^2.2.4",
     "react-native-gesture-handler": "^2.1.0",
+    "react-native-masonry-brick-list": "^1.0.3",
+    "react-native-paper": "^4.11.2",
     "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.12.0",
     "react-native-sortable-gridview": "^1.1.5",
     "react-native-super-grid": "^4.2.0",
+    "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
