@@ -11,6 +11,7 @@ import Books from "./screens/Books";
 import CreateUser from "./screens/CreateUser";
 import Home from "./screens/Home";
 import UserAccounts from "./screens/UserAccounts";
+import Vocbulary from "./screens/Vocbulary";
 const Stack = createStackNavigator();
 
 export default function MyStack() {
@@ -30,6 +31,7 @@ export default function MyStack() {
       <Stack.Screen  name="AccountDetails" component={AccountDetails}   options={{headerTitleAlign: 'center',title: 'Redigera Konto'}} />
       <Stack.Screen  name="BookShelf" component={BookShelf}   options={{headerTitleAlign: 'center',title: 'Book Hylla'}} />
       <Stack.Screen  name="AddBook" component={AddBook}   options={{headerTitleAlign: 'center',title: 'Lägg till bok'}} />
+      <Stack.Screen  name="Vocabulary" component={Vocbulary}   options={{headerTitleAlign: 'center',title: 'Vidga ordbanken'}} />
         <Stack.Screen  name="Books" component={Books}   options={{headerTitleAlign: 'center',title: 'Bibliotek'}} />
       </Stack.Navigator>
     </NavigationContainer>
