@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 
-import AppContext from "../context/AppContext"
+import AppContext from "../Context/AppContext"
 
 
 import{

@@ -77,13 +77,13 @@ export default function ListItems() {
         <ListItem.Chevron color="white" />
       </ListItem>
 
-      <ListItem style={stylo.body}>
+      <ListItem style={stylo.body}  onPress={() => navigation.navigate('Vocabulary')}  >
         <LinearGradient
           colors={["#5614B0", "#DBD65C"]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={lightBulb} />
-        <ListItem.Content>
+        <ListItem.Content >
           <ListItem.Title style={stylo.bg}>Vocabulary</ListItem.Title>
           <ListItem.Subtitle style={{ color: "white" }}>
             extend your Knowledge{" "}
