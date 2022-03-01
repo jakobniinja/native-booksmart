@@ -3,6 +3,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { View, Text } from "react-native";
 import { ScrollView, StyleSheet } from "react-native";
 import { List, Divider, useTheme } from "react-native-paper";
+import { ULTRA_KEY } from "@env";
 
 var axios = require("axios").default;
 
@@ -27,7 +28,7 @@ const Vocbulary = () => {
     params: { count: "5", minLength: "11" },
     headers: {
       "x-rapidapi-host": "random-words5.p.rapidapi.com",
-      "x-rapidapi-key": "4034d161ccmshbffa2af54214075p1df850jsn47f8cc9cd432",
+      "x-rapidapi-key": process.env.ULTRA_KEY,
     },
   };
 
