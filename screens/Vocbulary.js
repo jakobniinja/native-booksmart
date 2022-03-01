@@ -1,5 +1,5 @@
 import BrickList from "react-native-masonry-brick-list";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { View, Text } from "react-native";
 import { ScrollView, StyleSheet } from "react-native";
 import { List, Divider, useTheme } from "react-native-paper";
@@ -10,7 +10,8 @@ var axios = require("axios").default;
 
 const Vocbulary = () => {
   const [expanded, setExpanded] = React.useState(true);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
+  const [copyArr, setCopyArr] = useState({});
 
   const _handlePress = () => {
     setExpanded(!expanded);
@@ -29,19 +30,38 @@ const Vocbulary = () => {
       "x-rapidapi-key": "4034d161ccmshbffa2af54214075p1df850jsn47f8cc9cd432",
     },
   };
-  console.log(localStorage.getItem("dailyWord"));
+
+  // useEffect(() => {
+  //   window.localStorage.setItem("wordOfTheDay", JSON.stringify(data));
+  // }, []);
+
+  // useEffect(() => {
+  //   var jsonData = window.localStorage.getItem("wordOfTheDay");
+  //   let arr = {};
+  //   for (var i = 0; i < jsonData.length; i++) {
+  //     arr[i] = jsonData[i];
+  //   }
+  //   console.log(arr);
+  // }, []);
 
   useEffect(() => {
     const call24 = axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
-        if (localStorage.getItem("dailyWord")) {
-          localStorage.setItem("dailyWord", response.data);
-          setData(response.data);
-          console.log(data);
-        } else {
-          localStorage.getItem("dailyWord");
+        if (localStorage.getItem("word 1") == null) {
+          console.log(response.data);
+          const arr = [response.data];
+          const tmpArr = {};
+          let i = 0;
+          response.data.forEach((x) => {
+            localStorage.setItem(`word ${i}`, x);
+            console.log("from ls :", localStorage.getItem(`word ${i}`));
+            console.log("type me", typeof `word ${i}`);
+            console.log(`word ${i}`);
+            i++;
+          });
+
+          localStorage.setItem("hej", "124");
           setData(response.data);
         }
       })
@@ -49,8 +69,13 @@ const Vocbulary = () => {
         console.error(error);
       });
 
-    const id = setInterval(() => call24, 1000 * 60 * 60 * 24);
-    return () => clearInterval(id);
+    call24;
+  }, []);
+
+  useEffect(() => {
+    var tja = localStorage.getItem("word 1");
+    console.log("tja ", tja);
+    console.log("tja2 :", localStorage.length);
   }, []);
 
   return (
@@ -80,7 +105,7 @@ const Vocbulary = () => {
           left={(props) => <List.Icon {...props} icon="star" />}
           title="All Words"
         >
-          {data.length > 1 ? (
+          {/* {data.length > 1 ? (
             data.map((word, index) => (
               <List.Item
                 key={index}
@@ -93,7 +118,7 @@ const Vocbulary = () => {
               left={(props) => <List.Icon {...props} icon="error-outline" />}
               title="daily fetch failed"
             />
-          )}
+          )} */}
         </List.Accordion>
       </List.Section>
     </ScrollView>
