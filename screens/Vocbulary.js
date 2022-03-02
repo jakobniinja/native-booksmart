@@ -32,37 +32,17 @@ const Vocbulary = () => {
     },
   };
 
-  // useEffect(() => {
-  //   window.localStorage.setItem("wordOfTheDay", JSON.stringify(data));
-  // }, []);
-
-  // useEffect(() => {
-  //   var jsonData = window.localStorage.getItem("wordOfTheDay");
-  //   let arr = {};
-  //   for (var i = 0; i < jsonData.length; i++) {
-  //     arr[i] = jsonData[i];
-  //   }
-  //   console.log(arr);
-  // }, []);
-
   useEffect(() => {
     const call24 = axios
       .request(options)
       .then(function (response) {
         if (localStorage.getItem("word 1") == null) {
           console.log(response.data);
-          const arr = [response.data];
-          const tmpArr = {};
           let i = 0;
           response.data.forEach((x) => {
             localStorage.setItem(`word ${i}`, x);
-            console.log("from ls :", localStorage.getItem(`word ${i}`));
-            console.log("type me", typeof `word ${i}`);
-            console.log(`word ${i}`);
             i++;
           });
-
-          localStorage.setItem("hej", "124");
           setData(response.data);
         }
       })
@@ -74,9 +54,17 @@ const Vocbulary = () => {
   }, []);
 
   useEffect(() => {
-    var tja = localStorage.getItem("word 1");
-    console.log("tja ", tja);
-    console.log("tja2 :", localStorage.length);
+    var today = new Date();
+    var hour = today.getHours();
+    var min = today.getMinutes();
+    var sec = today.getSeconds();
+
+    if (hour == "23" && min == "07" && sec == "01") {
+      localStorage.removeItem("word 1");
+      localStorage.removeItem("word 2");
+      localStorage.removeItem("word 3");
+      localStorage.removeItem("word 4");
+    }
   }, []);
 
   return (
