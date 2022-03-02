@@ -1,6 +1,6 @@
 import BrickList from "react-native-masonry-brick-list";
 import React, { useEffect, useState, useMemo } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Platform } from "react-native";
 import { ScrollView, StyleSheet } from "react-native";
 import { List, Divider, useTheme } from "react-native-paper";
 import { ULTRA_KEY } from "@env";
@@ -79,7 +79,6 @@ const Vocbulary = () => {
     arr[3] = w4;
   }
 
-  console.log("data is :", arr);
   return (
     <ScrollView style={[styles.container, { backgroundColor: background }]}>
       <List.Section title="Most Common lookups">
@@ -112,8 +111,11 @@ const Vocbulary = () => {
               <List.Item
                 onPress={() => {
                   console.log("hi from ", index, word);
-                  let url = `https://www.urbandictionary.com/define.php?term=${word}`;
-                  window.open(url, "_blank");
+                  let url = `https://www.oxfordlearnersdictionaries.com/definition/english/${word}`;
+
+                  if (Platform.OS == "web") {
+                    window.open(url, "_blank");
+                  }
                 }}
                 key={index}
                 left={(props) => (
