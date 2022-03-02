@@ -12,7 +12,7 @@ var axios = require("axios").default;
 const Vocbulary = () => {
   const [expanded, setExpanded] = React.useState(true);
   const [data, setData] = useState({});
-  const [copyArr, setCopyArr] = useState({});
+  const arr = [];
 
   const _handlePress = () => {
     setExpanded(!expanded);
@@ -67,6 +67,19 @@ const Vocbulary = () => {
     }
   }, []);
 
+  if (localStorage.getItem("word 1").length != 0) {
+    let w1 = localStorage.getItem("word 1");
+    let w2 = localStorage.getItem("word 2");
+    let w3 = localStorage.getItem("word 3");
+    let w4 = localStorage.getItem("word 4");
+
+    arr[0] = w1;
+    arr[1] = w2;
+    arr[2] = w3;
+    arr[3] = w4;
+  }
+
+  console.log("data is :", arr);
   return (
     <ScrollView style={[styles.container, { backgroundColor: background }]}>
       <List.Section title="Most Common lookups">
@@ -94,20 +107,29 @@ const Vocbulary = () => {
           left={(props) => <List.Icon {...props} icon="star" />}
           title="All Words"
         >
-          {/* {data.length > 1 ? (
-            data.map((word, index) => (
+          {arr.length > 0 ? (
+            arr.map((word, index) => (
               <List.Item
+                onPress={() => {
+                  console.log("hi from ", index, word);
+                  let url = `https://www.urbandictionary.com/define.php?term=${word}`;
+                  window.open(url, "_blank");
+                }}
                 key={index}
-                left={(props) => <List.Icon {...props} />}
+                left={(props) => (
+                  <List.Icon {...props} icon="help-circle-outline" />
+                )}
                 title={word}
               />
             ))
           ) : (
             <List.Item
-              left={(props) => <List.Icon {...props} icon="error-outline" />}
+              left={(props) => (
+                <List.Icon {...props} icon="alert-circle-outline" />
+              )}
               title="daily fetch failed"
             />
-          )} */}
+          )}
         </List.Accordion>
       </List.Section>
     </ScrollView>
