@@ -59,7 +59,7 @@ const Vocbulary = () => {
     var min = today.getMinutes();
     var sec = today.getSeconds();
 
-    if (hour == "23" && min == "07" && sec == "01") {
+    if (hour == "23" && min == "23" && sec == "51") {
       localStorage.removeItem("word 1");
       localStorage.removeItem("word 2");
       localStorage.removeItem("word 3");
@@ -67,7 +67,7 @@ const Vocbulary = () => {
     }
   }, []);
 
-  if (localStorage.getItem("word 1").length != 0) {
+  if (localStorage.getItem("word 1")) {
     let w1 = localStorage.getItem("word 1");
     let w2 = localStorage.getItem("word 2");
     let w3 = localStorage.getItem("word 3");
