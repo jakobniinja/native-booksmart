@@ -15,37 +15,42 @@ export default function ListItems() {
   const navigation = useNavigation();
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
-        {user.name!="guest" ? (
-      <ListItem style={stylo.body} onPress={() => navigation.navigate("Books")}>
-            <LinearGradient
-              colors={["#5614B0", "#DBD65C"]}
-              style={stylo.background}
-            ></LinearGradient>
-            <Avatar source={addBook}  />
-            <ListItem.Content style={{marginLeft:8}} >
-              <ListItem.Title style={stylo.bg}>Books</ListItem.Title>
-              <ListItem.Subtitle style={{ color: "white" }}>
-                add new book to collection
-              </ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron color="white" />
-      </ListItem>
-        ) : (
-      <ListItem style={stylo.body}  >
-            <LinearGradient
-              colors={["#5614B0", "#DBD65C"]}
-              style={stylo.background}
-            ></LinearGradient>
-            <Avatar source={addBook} />
-            <ListItem.Content style={{marginLeft:8}} >
-              <ListItem.Title style={stylo.bg}>No Books available...</ListItem.Title>
-              <ListItem.Subtitle style={{ color: "white" }}>
+      {user.name != "guest" ? (
+        <ListItem
+          style={stylo.body}
+          onPress={() => navigation.navigate("Books")}
+        >
+          <LinearGradient
+            colors={["#5614B0", "#DBD65C"]}
+            style={stylo.background}
+          ></LinearGradient>
+          <Avatar source={addBook} />
+          <ListItem.Content style={{ marginLeft: 8 }}>
+            <ListItem.Title style={stylo.bg}>Books</ListItem.Title>
+            <ListItem.Subtitle style={{ color: "white" }}>
+              add new book to collection
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron color="white" />
+        </ListItem>
+      ) : (
+        <ListItem style={stylo.body}>
+          <LinearGradient
+            colors={["#5614B0", "#DBD65C"]}
+            style={stylo.background}
+          ></LinearGradient>
+          <Avatar source={addBook} />
+          <ListItem.Content style={{ marginLeft: 8 }}>
+            <ListItem.Title style={stylo.bg}>
+              No Books available...
+            </ListItem.Title>
+            <ListItem.Subtitle style={{ color: "white" }}>
               Go to users to access your books
-              </ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron color="white" />
-      </ListItem>
-        )}
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron color="white" />
+        </ListItem>
+      )}
 
       <ListItem style={stylo.body}>
         <LinearGradient
@@ -62,7 +67,10 @@ export default function ListItems() {
         <ListItem.Chevron color="white" />
       </ListItem>
 
-      <ListItem style={stylo.body}>
+      <ListItem
+        style={stylo.body}
+        onPress={() => navigation.navigate("LeaderBoard")}
+      >
         <LinearGradient
           colors={["#5614B0", "#DBD65C"]}
           style={stylo.background}
@@ -77,13 +85,16 @@ export default function ListItems() {
         <ListItem.Chevron color="white" />
       </ListItem>
 
-      <ListItem style={stylo.body}  onPress={() => navigation.navigate('Vocabulary')}  >
+      <ListItem
+        style={stylo.body}
+        onPress={() => navigation.navigate("Vocabulary")}
+      >
         <LinearGradient
           colors={["#5614B0", "#DBD65C"]}
           style={stylo.background}
         ></LinearGradient>
         <Avatar source={lightBulb} />
-        <ListItem.Content >
+        <ListItem.Content>
           <ListItem.Title style={stylo.bg}>Vocabulary</ListItem.Title>
           <ListItem.Subtitle style={{ color: "white" }}>
             extend your Knowledge{" "}
@@ -133,6 +144,6 @@ const stylo = StyleSheet.create({
   },
   img: {
     width: 40,
-   marginLeft:5 
-  }
+    marginLeft: 5,
+  },
 });

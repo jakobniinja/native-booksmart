@@ -67,7 +67,7 @@ const Vocbulary = () => {
     }
   }, []);
 
-  if (localStorage.getItem("word 1").length != 0) {
+  if (localStorage.getItem("word 1") != null) {
     let w1 = localStorage.getItem("word 1");
     let w2 = localStorage.getItem("word 2");
     let w3 = localStorage.getItem("word 3");
@@ -84,7 +84,7 @@ const Vocbulary = () => {
       <List.Section title="Most Common lookups">
         <List.Accordion
           left={(props) => <List.Icon {...props} icon="folder" />}
-          title="Urban Dictionaryy"
+          title="Urban Dictionary"
         >
           <List.Item title="proactive" />
           <List.Item title="relentless" />
