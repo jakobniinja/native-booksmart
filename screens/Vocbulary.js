@@ -4,7 +4,7 @@ import { View, Text, Platform } from "react-native";
 import { ScrollView, StyleSheet } from "react-native";
 import { List, Divider, useTheme } from "react-native-paper";
 import { ULTRA_KEY } from "@env";
-
+import "localstorage-polyfill";
 var axios = require("axios").default;
 
 // TODO format on save && impl only fetch every 24h
@@ -59,7 +59,7 @@ const Vocbulary = () => {
     var min = today.getMinutes();
     var sec = today.getSeconds();
 
-    if (hour == "23" && min == "23" && sec == "51") {
+    if (hour == "23" && min == "07" && sec == "01") {
       localStorage.removeItem("word 1");
       localStorage.removeItem("word 2");
       localStorage.removeItem("word 3");
@@ -67,7 +67,7 @@ const Vocbulary = () => {
     }
   }, []);
 
-  if (localStorage.getItem("word 1")) {
+  if (localStorage.getItem("word 1") != null) {
     let w1 = localStorage.getItem("word 1");
     let w2 = localStorage.getItem("word 2");
     let w3 = localStorage.getItem("word 3");
@@ -84,7 +84,7 @@ const Vocbulary = () => {
       <List.Section title="Most Common lookups">
         <List.Accordion
           left={(props) => <List.Icon {...props} icon="folder" />}
-          title="Urban Dictionaryy"
+          title="Urban Dictionary"
         >
           <List.Item title="proactive" />
           <List.Item title="relentless" />
