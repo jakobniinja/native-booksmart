@@ -19,6 +19,7 @@
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "firebase": "^9.6.2",
+    "localstorage-polyfill": "^1.0.1",
     "native-base": "^3.3.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -34,8 +35,9 @@
     "react-native-screens": "^3.12.0",
     "react-native-sortable-gridview": "^1.1.5",
     "react-native-super-grid": "^4.2.0",
+    "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
-    "react-native-web": "^0.17.1",
+    "react-native-web": "^0.17.7",
     "react-router-dom": "^6.2.2",
     "react-style-proptype": "^3.2.2"
   },
