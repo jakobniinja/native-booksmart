@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   FlatList,
@@ -13,6 +13,8 @@ import {
 } from "native-base";
 
 import { View } from "react-native";
+import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
+import { db } from "../Firebase";
 
 export default function LeaderBoard() {
   return (
@@ -25,6 +27,28 @@ export default function LeaderBoard() {
 }
 
 const Example = () => {
+  const [allUsers, setUser] = useState([]);
+  const [allBooks, setAllBooks] = useState([]);
+
+  useEffect(() => {
+    const userCol = collection(db, "users");
+    const getUser = async () => {
+      const data = await getDocs(userCol);
+      setUser(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      console.log("col: ", userCol);
+    };
+    const q = query(collection(db, "users"));
+    const unsubscribe = onSnapshot(q, () => {
+      getUser();
+    });
+  }, []);
+  console.log("users are : ", allUsers);
+  useEffect(() => {
+    allUsers.map((user, index) => {
+      console.log("user is :", user.id, "index is :", index);
+    });
+  }, []);
+
   const data = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
