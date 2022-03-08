@@ -8,7 +8,8 @@ import AddBook from "./screens/AddBook";
 import Books from "./screens/Books";
 import CreateUser from "./screens/CreateUser";
 import Home from "./screens/Home";
-import ScoreBoard from "./screens/ScoreBoard";
+import LeaderBoard from "./screens/LeaderBoard";
+// import LeaderBoard from "./screens/LeaderBoard";
 import UserAccounts from "./screens/UserAccounts";
 import Vocbulary from "./screens/Vocbulary";
 const Stack = createStackNavigator();
@@ -66,10 +67,11 @@ export default function MyStack() {
             component={Vocbulary}
             options={{ headerTitleAlign: "center", title: "Vidga ordbanken" }}
           />
+
           <Stack.Screen
-            name="ScoreBoard"
-            component={ScoreBoard}
-            options={{ headerTitleAlign: "center", title: "Poängtavlan" }}
+            name="LeaderBoard"
+            component={LeaderBoard}
+            options={{ headerTitleAlign: "center", title: "Poängtavla" }}
           />
           <Stack.Screen
             name="Books"
