@@ -52,21 +52,6 @@ export default function ListItems() {
         </ListItem>
       )}
 
-      <ListItem style={stylo.body}>
-        <LinearGradient
-          colors={["#5614B0", "#DBD65C"]}
-          style={stylo.background}
-        ></LinearGradient>
-        <Avatar source={searchIcon} />
-        <ListItem.Content>
-          <ListItem.Title style={stylo.bg}>Dictionary</ListItem.Title>
-          <ListItem.Subtitle style={{ color: "white" }}>
-            dictonary and Much more
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron color="white" />
-      </ListItem>
-
       <ListItem
         style={stylo.body}
         onPress={() => navigation.navigate("LeaderBoard")}
