@@ -29,25 +29,43 @@ export default function LeaderBoard() {
 const Example = () => {
   const [allUsers, setUser] = useState([]);
   const [allBooks, setAllBooks] = useState([]);
+  const [userIds, setUserIds] = useState([]);
 
   useEffect(() => {
     const userCol = collection(db, "users");
     const getUser = async () => {
       const data = await getDocs(userCol);
       setUser(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log("col: ", userCol);
     };
     const q = query(collection(db, "users"));
     const unsubscribe = onSnapshot(q, () => {
       getUser();
     });
   }, []);
-  console.log("users are : ", allUsers);
+  console.log("users : ", allUsers);
   useEffect(() => {
     allUsers.map((user, index) => {
-      console.log("user is :", user.id, "index is :", index);
+        console.log("user id :", user.id, "index is:", index);
+      
+    const booksCol= collection(db, "users", user.id, "books");
+    const getUser = async () => {
+      const data = await getDocs(booksCol);
+      setAllBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+    // add points to users total
+    };
+    const q = query(collection(db, "users", user.id, "books"));
+    const unsubscribe = onSnapshot(q, () => {
+      getUser();
     });
-  }, []);
+    });
+  }, [allUsers]);
+
+console.log("books", allBooks)
+allBooks.map((a, b, {points}, ) => {
+  console.log("points", points)
+console.log("a :",a,"b :" ,b )
+})
 
   const data = [
     {
