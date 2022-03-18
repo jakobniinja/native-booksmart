@@ -13,7 +13,7 @@ import {
 } from "native-base";
 
 import { View } from "react-native";
-import { collection, getDocs, onSnapshot, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc,  } from "firebase/firestore";
 import { db } from "../Firebase";
 
 export default function LeaderBoard() {
@@ -30,7 +30,13 @@ const Example = () => {
   const [allUsers, setUser] = useState([]);
   const [allBooks, setAllBooks] = useState([]);
   const [userIds, setUserIds] = useState([]);
+  const [setp, setSetp] = useState([])
+  var pointGetter = [];
+  let pointGetter2 = [];
 
+  const pointAdder = async (user, idx) => { 
+   console.log(user, idx)
+   }
   useEffect(() => {
     const userCol = collection(db, "users");
     const getUser = async () => {
@@ -42,29 +48,37 @@ const Example = () => {
       getUser();
     });
   }, []);
-  console.log("users : ", allUsers);
+
   useEffect(() => {
     allUsers.map((user, index) => {
         console.log("user id :", user.id, "index is:", index);
+
       
     const booksCol= collection(db, "users", user.id, "books");
     const getUser = async () => {
       const data = await getDocs(booksCol);
       setAllBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-    // add points to users total
     };
-    const q = query(collection(db, "users", user.id, "books"));
+
+    const q = collection(db, "users", user.id, "books");
     const unsubscribe = onSnapshot(q, () => {
       getUser();
     });
     });
   }, [allUsers]);
 
-console.log("books", allBooks)
-allBooks.map((a, b, {points}, ) => {
-  console.log("points", points)
-console.log("a :",a,"b :" ,b )
+
+
+ allBooks.forEach(i => pointGetter.push(i.index,i.points, ));
+
+console.log("pg: ", pointGetter)
+
+  
+allUsers.map((user, index) => {
+        // pointAdder(user, index);
+        // let result = allBooks.groupBy( ({ index }) => index ); 
+        // console.log(result)
 })
 
   const data = [
@@ -73,28 +87,28 @@ console.log("a :",a,"b :" ,b )
       fullName: "12an",
       timeStamp: "12:47 PM",
       recentText: "1244 ",
-      avatarUrl: "https://gcdnb.pbrd.co/images/9h0UyvQkHymd.png?o=1",
+      avatarUrl: require('../assets/punk25.png'),
     },
     {
       id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
       fullName: "Emily",
       timeStamp: "11:11 PM",
       recentText: "840",
-      avatarUrl: "https://gcdnb.pbrd.co/images/BqIJUkXLbyy7.png?o=1",
+      avatarUrl: require('../assets/punk40.png'),
     },
     {
       id: "58694a0f-3da1-471f-bd96-145571e29d72",
       fullName: "Oliva",
       timeStamp: "6:22 PM",
       recentText: "330",
-      avatarUrl: "https://gcdnb.pbrd.co/images/BqIJUkXLbyy7.png?o=1",
+      avatarUrl: require('../assets/punk60.png'),
     },
     {
       id: "68694a0f-3da1-431f-bd56-142371e29d72",
       fullName: "Jakob Jr",
       timeStamp: "8:56 PM",
       recentText: "10",
-      avatarUrl: "https://gcdnb.pbrd.co/images/9h0UyvQkHymd.png?o=1",
+      avatarUrl: require('../assets/punk40.png'),
     },
   ];
   return (
