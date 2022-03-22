@@ -70,9 +70,9 @@ const Example = () => {
 
 
 
- allBooks.forEach(i => pointGetter.push(i.index,i.points, ));
+ const res = allBooks.forEach(i => pointGetter.push(i.index,i.points, ));
 
-console.log("pg: ", pointGetter)
+console.log("pg: ", res)
 
   
 allUsers.map((user, index) => {
@@ -111,6 +111,7 @@ allUsers.map((user, index) => {
       avatarUrl: require('../assets/punk40.png'),
     },
   ];
+  
   return (
     <Box>
       <Heading fontSize="xl" p="4" pb="3"></Heading>

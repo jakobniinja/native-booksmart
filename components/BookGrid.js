@@ -12,12 +12,16 @@ import { doc, collection, onSnapshot,  query,  getDocs } from "firebase/firestor
 import SortableGridview from "react-native-sortable-gridview";
 import AppContext from "../Context/AppContext";
 import { db } from "../Firebase";
+import car from "../assets/books/graphql.jpg"
+import car2 from "../assets/books/javaalgo.jpg"
+import car3 from "../assets/books/algo2.jpeg"
 export default function BookGrid(props) {
   const [allBooks, setAllBooks] = useState([]);
   const books = [];
   var width = Dimensions.get("window").width;
   const [currentUser, setCurrentUser] = useState([]);
   const [activeUser, ActiveUser] = useState([])
+  console.log(allBooks)
 
 
   useEffect(() => {
@@ -83,16 +87,15 @@ export default function BookGrid(props) {
   return (
     <SortableGridview
       data={[
-        { name: ` 124`, backgroundColor: "#09f", color: "#fff" },
+        { name: ` 124`, backgroundColor: "#09f", color: "#000" },
         {
           name: "book 2",
-          backgroundColor: "#rgba(255, 216, 58, 1)",
-          color: "#333",
+          color: "#000",
         },
         {
           name: "book 3",
           backgroundColor: "#rgba(0, 222, 144, 1)",
-          color: "#fff",
+          color: "#000",
         },
       ]}
       lockData={
@@ -112,7 +115,8 @@ export default function BookGrid(props) {
         return (
           <View
             key={[item.name]}
-            style={[styles.item, { backgroundColor: item.backgroundColor }]}
+            style={[styles.item, { backgroundColor: item.backgroundColor, width: '100px', height: '130px', resizeMode: 'cover'
+            }]}
             onTap={() => {
               Alert.alert(`On Tap ${item.name}!`);
             }}
@@ -123,76 +127,21 @@ export default function BookGrid(props) {
           </View>
         );
       }}
-      renderLockItem={(item) => {
-        return (
-          <View style={styles.top}>
-            {allBooks.length >= 1 ? (
-              allBooks.map((book, idx) => (
-                <View
-                  style={{
-                    width: width / 4 - 10,
-                    borderRadius: 12,
-                    margin: 3,
-                    height: 70,
-                    backgroundColor: "gray",
-                    color: "#fff",
-                    textAlign: "center",
-                    justifyContent: "center",
-                    marginBottom: 20,
-                  }}
-                  onTap={() => {
-                    Alert.alert(`On Tap ${allBooks[idx].title}!`);
-                  }}
-                >
-                  <Text
-                    style={styles.text}
-                    onPress={() => {
-                      console.log(allBooks[index].title);
-                    }}
-                  >
-                    {allBooks[idx].title}
-                  </Text>
-                </View>
-              ))
-            ) : (
-              <View
-                uniqueKey={`${item.name}`}
-                style={styles.lock}
-                onTap={() => {
-                  Alert.alert(`On Tap ${item.name}!`);
-                }}
-              >
-                <Text>{item.name}</Text>
-              </View>
-            )}
-          </View>
-        );
-      }}
-      lockItemCoverStyle={{ marginTop: -8, marginLeft: -8 }}
-      renderLockItemCover={(item, index) => {
-        return (
-          <TouchableOpacity
-            style={styles.cover}
-            onPress={() => {
-              Alert.alert(`On Press ${item.name} Cover!`);
-            }}
-          ></TouchableOpacity>
-        );
-      }}
     />
   );
 }
 
 const styles = StyleSheet.create({
   text: {
-    color: "black",
-    fontSize: 12,
+    fontSize: 15,
+    backgroundColor: '#ddd',
   },
   item: {
     width: 80,
     borderRadius: 12,
     height: 70,
-    backgroundColor: "#fff",
+    color: '#fff',
+    backgroundImage:`url(${car})`, 
     alignItems: "center",
     justifyContent: "center",
     marginLeft: "16%",
