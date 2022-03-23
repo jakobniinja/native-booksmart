@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -12,28 +12,91 @@ import { doc, collection, onSnapshot,  query,  getDocs } from "firebase/firestor
 import SortableGridview from "react-native-sortable-gridview";
 import AppContext from "../Context/AppContext";
 import { db } from "../Firebase";
-import car from "../assets/books/graphql.jpg"
-import car2 from "../assets/books/javaalgo.jpg"
-import car3 from "../assets/books/algo2.jpeg"
+import graphql from "../assets/books/graphql.png"
+import javaalgo from "../assets/books/javaalgo.jpg"
+import algo2 from "../assets/books/algo2.jpeg"
+import l1 from "../assets/books/lm1-rs.jpg"
+import l2 from "../assets/books/lm2-rs.jpg"
+
+
+
+import da1 from "../assets/books/dfmf-rs.jpg"
+import da2 from "../assets/books/dfmf2-rs.jpg"
+import da3 from "../assets/books/dfmf3-rs.jpg"
+
+
+
+
+import { initialWindowMetrics } from "react-native-safe-area-context";
 export default function BookGrid(props) {
+  const { user, setUser } = useContext(AppContext);
+ const [flag, setFlag] = useState(false)
+   useMemo(
+    () => ({flag, user}),
+    [flag, user]
+  );
+
+ 
   const [allBooks, setAllBooks] = useState([]);
-  const books = [];
-  var width = Dimensions.get("window").width;
-  const [currentUser, setCurrentUser] = useState([]);
-  const [activeUser, ActiveUser] = useState([])
-  console.log(allBooks)
+  var bookie;
+const [bookLogic, setBookLogic] = useState(
+
+[
+        { name: `book1`, backgroundColor: "#09f", color: "#000"  },
+        {
+          name: "book2",
+          color: "#000",
+          backgroundColor: 'blueviolet'
+        },
+        {
+          name: "book3",
+          backgroundColor: "#rgba(0, 222, 144, 1)",
+          color: "#000",
+        },
+      
+])
+
+  let data2= [
+         { name: ` 124`, backgroundColor: "#09f", color: "#000", backgroundImage: `url(${da3})` },
+         {
+           name: "Java Algrothims ",
+           color: "#000",
+     backgroundImage:`url(${da1})`, 
+         },
+         {
+           name: "Graphl mm",
+           backgroundColor: "#rgba(0, 222, 144, 1)",
+           color: "#000",
+     backgroundImage:`url(${da2})`, 
+         },
+  ]
+
+
+
+//    {user.name == "Tofflan" && setData(
+//  [
+//          { name: ` 124`, backgroundColor: "#09f", color: "#000", backgroundImage: `url(${da3})` },
+//          {
+//            name: "Java Algrothims ",
+//            color: "#000",
+//      backgroundImage:`url(${da1})`, 
+//          },
+//          {
+//            name: "Graphl mm",
+//            backgroundColor: "#rgba(0, 222, 144, 1)",
+//            color: "#000",
+//      backgroundImage:`url(${da2})`, 
+//          },
+//        ]
+//    )}
+
+   
 
 
   useEffect(() => {
       const userCol = collection(db, "users");
           const getUser = async () => {
       const data = await getDocs(userCol);
-    // data.docs.map((doc) => {
-    //   const { name, age, occupation } = doc.data();
-    //   if (name == user.name) {
-    //     setUser({ name: name, age: age, occupation: occupation });
-    //   }
-    // });
     };
     const q = query(collection(db, "users"));
     const unsubscribe = onSnapshot(q, () => {
@@ -41,70 +104,16 @@ export default function BookGrid(props) {
       
     });
 
-    // collection(db, "users").onSnapshot((querySnapshot) => {
-    //   const currentUser = [];
-    //   querySnapshot.docs.forEach((doc) => {
-    //     const { name, age, occupation } = doc.data();
-    //     if (name == user.name) {
-    //       currentUser.push({
-    //         id: doc.id,
-    //         name,
-    //         age,
-    //         occupation,
-    //       });
-    //     }
-    //   });
-    //   setCurrentUser(...currentUser);
-    // });
   }, []);
-//   useEffect(() => {
-//     if (currentUser.id) {
-    //   db.collection("users")
-    //     .doc(currentUser.id)
-    //     .collection("books")
-    //     .onSnapshot((querySnapshot) => {
-    //       querySnapshot.docs.forEach((doc) => {
-    //         const { ImageURL, lastRead, pages, points, title } = doc.data();
-
-    //         books.push({
-    //           id: doc.id,
-    //           ImageURL,
-    //           lastRead,
-    //           pages,
-    //           points,
-    //           title,
-    //         });
-    //       });
-    //       setAllBooks(books);
-    //     });
-//     }
-//   }, [currentUser]);
   
-  useEffect(() => {
-    // setUser(currentUser)  
-  }, [])
+
+  
 
   return (
+    user.name!="Tofflan" ? (
+
     <SortableGridview
-      data={[
-        { name: ` 124`, backgroundColor: "#09f", color: "#000" },
-        {
-          name: "book 2",
-          color: "#000",
-        },
-        {
-          name: "book 3",
-          backgroundColor: "#rgba(0, 222, 144, 1)",
-          color: "#000",
-        },
-      ]}
-      lockData={
-        allBooks && allBooks.length >= 1
-          ? allBooks.map((book, index) => [
-              { name: allBooks[index].title, index: allBooks[index].id },
-            ])
-          : [{ name: "book 7" }]
-      }
+      data={bookLogic}
       onDragStart={() => {
         console.log("LockItemCoverLayout onDragStart");
       }}
@@ -115,20 +124,63 @@ export default function BookGrid(props) {
         return (
           <View
             key={[item.name]}
-            style={[styles.item, { backgroundColor: item.backgroundColor, width: '100px', height: '130px', resizeMode: 'cover'
+            style={[styles.item, {
+               backgroundColor: item.backgroundColor, width: '100px', height: '130px', resizeMode: 'cover',
+            backgroundImage: item.backgroundImage
             }]}
             onTap={() => {
               Alert.alert(`On Tap ${item.name}!`);
             }}
           >
-            <Text style={[styles.text, { color: item.color }]}>
+            <Text style={[styles.text, { color: item.color }]} onPress={() => {
+                  setFlag(!flag)
+            }} >
               {item.name}
             </Text>
+
           </View>
         );
       }}
     />
-  );
+
+    ) : (
+
+    <SortableGridview
+      data={data2}
+      onDragStart={() => {
+        console.log("LockItemCoverLayout onDragStart");
+      }}
+      onDragRelease={(data) => {
+        console.log("LockItemCoverLayout onDragRelease", data);
+      }}
+      renderItem={(item, index) => {
+        return (
+          <View
+            key={[item.name]}
+            style={[styles.item, {
+               backgroundColor: item.backgroundColor, width: '100px', height: '130px', resizeMode: 'cover',
+            backgroundImage: item.backgroundImage
+            }]}
+            onTap={() => {
+              Alert.alert(`On Tap ${item.name}!`);
+            }}
+          >
+            <Text style={[styles.text, { color: item.color }]} onPress={() => {
+                  setFlag(!flag)
+            }} >
+              {item.name}
+            </Text>
+
+          </View>
+        );
+      }}
+    />
+
+    )
+
+    
+
+  )
 }
 
 const styles = StyleSheet.create({
@@ -141,7 +193,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     height: 70,
     color: '#fff',
-    backgroundImage:`url(${car})`, 
     alignItems: "center",
     justifyContent: "center",
     marginLeft: "16%",
