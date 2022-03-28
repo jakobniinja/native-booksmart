@@ -9,6 +9,7 @@ import Books from "./screens/Books";
 import CreateUser from "./screens/CreateUser";
 import Home from "./screens/Home";
 import LeaderBoard from "./screens/LeaderBoard";
+import Stats from "./screens/Stats";
 // import LeaderBoard from "./screens/LeaderBoard";
 import UserAccounts from "./screens/UserAccounts";
 import Vocbulary from "./screens/Vocbulary";
@@ -77,6 +78,11 @@ export default function MyStack() {
             name="Books"
             component={Books}
             options={{ headerTitleAlign: "center", title: "Bibliotek" }}
+          />
+          <Stack.Screen
+            name="Stats"
+            component={Stats}
+            options={{ headerTitleAlign: "center", title: "Statistik" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
