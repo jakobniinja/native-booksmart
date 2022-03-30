@@ -10,15 +10,22 @@ export default function Stats() {
 <Fragment>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1, justifyContent:'center' }}>
+        <View style={{ flex: 1 }}>
           <View style={{ margin: 16 }}>
-            <Text style={{ fontWeight: "600", fontSize: 16, color: "#656ac6" }}>
+            <Text style={{ fontWeight: "600", fontSize: 16, color: "#656ac6", textAlign:'center', marginBottom:'10%'
+          }}>
               Activity Indicator
             </Text>
+            <View style={{display:'flex', flexDirection:'row',marginLeft:'10%' }} >
+              <Text  style={{marginLeft:'15%'}}>Jan</Text>
+              <Text  style={{marginLeft:'10%'}}>Mar </Text>
+              <Text  style={{marginLeft:'10%'}}>Jun</Text>
+              <Text  style={{marginLeft:'10%'}}>Aug</Text>
+            </View>
             <CalendarHeatmap
               endDate={new Date("2019-03-25")}
-              numDays={100}
-              colorArray={["#eee", "#bcd6f7", "#656ac6", "#393b99", "#191c5c"]}
+              numDays={115}
+              colorArray={["lightgray", "#bcd6f7", "#656ac6", "#393b99", "#191c5c"]}
               values={staticData}
             />
           </View>
