@@ -105,7 +105,6 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
-      P
       <ListItem
         style={stylo.body}
         onPress={() => navigation.navigate("UserAccounts")}
