@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Avatar, ListItem } from "react-native-elements";
 import addBook from "../assets/addBook.png";
 import folder from "../assets/folder.png";
-import statsbg from "../assets/stats.jpg"
+import statsbg from "../assets/stats.jpg";
 import leaderBoard from "../assets/leaderBoard.png";
 import lightBulb from "../assets/lightBulb.png";
 import searchIcon from "../assets/searchIcon.png";
@@ -88,23 +88,44 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
-      <ListItem
-        style={stylo.body}
-        onPress={() => navigation.navigate("Stats")}
-      >
-        <LinearGradient
-          colors={["#5614B0", "#DBD65C"]}
-          style={stylo.background}
-        ></LinearGradient>
-        <Avatar source={statsbg } />
-        <ListItem.Content>
-          <ListItem.Title style={stylo.bg}>Stats</ListItem.Title>
-          <ListItem.Subtitle style={{ color: "white" }}>
-            track your progress
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron color="white" />
-      </ListItem>
+
+      {user.name != "guest" ? (
+        <ListItem
+          style={stylo.body}
+          onPress={() => navigation.navigate("Stats")}
+        >
+          <LinearGradient
+            colors={["#5614B0", "#DBD65C"]}
+            style={stylo.background}
+          ></LinearGradient>
+          <Avatar source={statsbg} />
+          <ListItem.Content>
+            <ListItem.Title style={stylo.bg}>Stats</ListItem.Title>
+            <ListItem.Subtitle style={{ color: "white" }}>
+              track your progress
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron color="white" />
+        </ListItem>
+      ) : (
+        <ListItem style={stylo.body}>
+          <LinearGradient
+            colors={["#5614B0", "#DBD65C"]}
+            style={stylo.background}
+          ></LinearGradient>
+          <Avatar source={statsbg} />
+          <ListItem.Content style={{ marginLeft: 8 }}>
+            <ListItem.Title style={stylo.bg}>
+              No Stats available...
+            </ListItem.Title>
+            <ListItem.Subtitle style={{ color: "white" }}>
+              Select a user to continue
+            </ListItem.Subtitle>
+          </ListItem.Content>
+          <ListItem.Chevron color="white" />
+        </ListItem>
+      )}
+
       <ListItem
         style={stylo.body}
         onPress={() => navigation.navigate("UserAccounts")}
@@ -122,9 +143,6 @@ export default function ListItems() {
         </ListItem.Content>
         <ListItem.Chevron color="white" />
       </ListItem>
-
-
-
     </View>
   );
 }

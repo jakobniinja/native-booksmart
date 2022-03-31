@@ -48,6 +48,13 @@ export default function MyStack() {
             component={CreateUser}
             options={{ headerTitleAlign: "center", title: "Skapa Konto" }}
           />
+
+          <Stack.Screen
+            name="Stats"
+            component={Stats}
+            options={{ headerTitleAlign: "center", title: "Statistik" }}
+          />
+
           <Stack.Screen
             name="AccountDetails"
             component={AccountDetails}
@@ -78,11 +85,6 @@ export default function MyStack() {
             name="Books"
             component={Books}
             options={{ headerTitleAlign: "center", title: "Bibliotek" }}
-          />
-          <Stack.Screen
-            name="Stats"
-            component={Stats}
-            options={{ headerTitleAlign: "center", title: "Statistik" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
