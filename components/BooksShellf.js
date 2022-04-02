@@ -50,7 +50,7 @@ export default function BookShelf() {
   }, [])
 
   return (
-    <>
+    <View>
     {user ? (
     <Text  style={{textAlign: 'center', fontSize: 15}} > tja,   
      {user.name}
@@ -65,6 +65,6 @@ export default function BookShelf() {
         buttonStyle={styles.pBtn}
       />
       <BookGrid/>
-    </>
+    </View>
   );
 }

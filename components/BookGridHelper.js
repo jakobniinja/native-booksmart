@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import SortableGridview from "react-native-sortable-gridview";
 import React, { useContext, useState } from "react";
 import AppContext from "../Context/AppContext";
@@ -12,6 +12,7 @@ import hp from "../assets/books/hp-full (1).jpg";
 import h1 from "../assets/books/filosofi-stenen-rs.jpg";
 import h2 from "../assets/books/halvblodsprinsen-rs.jpg";
 import h3 from "../assets/books/fenfix-rs.jpg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function BookGridHelper() {
@@ -95,14 +96,14 @@ export default function BookGridHelper() {
         }}
         renderItem={(item, index) => {
           return (
-            <View
+            <SafeAreaView>
+            <ImageBackground source={require('../assets/books/lm1-rs.jpg')}  style={{width:"80%", height:"80%",display:'flex', justifyContent:'center', alignItems:'center' }} 
+
               key={[item.name]}
               style={[
                 styles.item,
                 {
                   backgroundColor: item.backgroundColor,
-                  width: "100px",
-                  height: "130px",
                   resizeMode: "cover",
                   backgroundImage: item.backgroundImage,
                 },
@@ -119,7 +120,8 @@ export default function BookGridHelper() {
               >
                 {item.name}
               </Text>
-            </View>
+            </ImageBackground>
+            </SafeAreaView>
           );
         }}
       />
@@ -142,8 +144,6 @@ export default function BookGridHelper() {
                 styles.item,
                 {
                   backgroundColor: item.backgroundColor,
-                  width: "100px",
-                  height: "130px",
                   resizeMode: "cover",
                   backgroundImage: item.backgroundImage,
                 },
@@ -166,7 +166,7 @@ export default function BookGridHelper() {
       />
     );
   } 
-   else if (user.name == "Olivia") {
+   else if (user.name == "olivia") {
     return (
       <SortableGridview
         data={data4}
@@ -184,8 +184,6 @@ export default function BookGridHelper() {
                 styles.item,
                 {
                   backgroundColor: item.backgroundColor,
-                  width: "100px",
-                  height: "130px",
                   resizeMode: "cover",
                   backgroundImage: item.backgroundImage,
                 },
@@ -228,8 +226,6 @@ export default function BookGridHelper() {
                 styles.item,
                 {
                   backgroundColor: item.backgroundColor,
-                  width: "100px",
-                  height: "130px",
                   resizeMode: "cover",
                   backgroundImage: item.backgroundImage,
                 },

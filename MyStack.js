@@ -49,11 +49,11 @@ export default function MyStack() {
             options={{ headerTitleAlign: "center", title: "Skapa Konto" }}
           />
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Stats"
             component={Stats}
             options={{ headerTitleAlign: "center", title: "Statistik" }}
-          />
+          /> */}
 
           <Stack.Screen
             name="AccountDetails"

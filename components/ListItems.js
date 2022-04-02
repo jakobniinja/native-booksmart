@@ -89,7 +89,7 @@ export default function ListItems() {
         <ListItem.Chevron color="white" />
       </ListItem>
 
-      {user.name != "guest" ? (
+      {/* {user.name != "guest" ? (
         <ListItem
           style={stylo.body}
           onPress={() => navigation.navigate("Stats")}
@@ -124,7 +124,7 @@ export default function ListItems() {
           </ListItem.Content>
           <ListItem.Chevron color="white" />
         </ListItem>
-      )}
+      )} */}
 
       <ListItem
         style={stylo.body}
