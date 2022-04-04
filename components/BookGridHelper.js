@@ -36,18 +36,18 @@ export default function BookGridHelper() {
       name: "På Ny Kula",
       backgroundColor: "#09f",
       color: "#000",
-      backgroundImage: `url(${da3})`,
+      backgroundImage: `${da3}`,
     },
     {
       name: "Bravader ",
       color: "#000",
-      backgroundImage: `url(${da1})`,
+      backgroundImage: `${da1}`,
     },
     {
       name: "Nya Fältet",
       backgroundColor: "#rgba(0, 222, 144, 1)",
       color: "#000",
-      backgroundImage: `url(${da2})`,
+      backgroundImage: `${da2}`,
     },
   ];
   let data3 = [
@@ -68,7 +68,7 @@ export default function BookGridHelper() {
     {
       name: "Halvblodsprinsen",
       color: "#000",
-      backgroundImage: `url(${h1})`,
+      backgroundImage: `url(${h1}`,
     },
     {
       name: "Filosofi stenen",
@@ -95,10 +95,13 @@ export default function BookGridHelper() {
           console.log("LockItemCoverLayout onDragRelease", data);
         }}
         renderItem={(item, index) => {
+          let ogURL = `${item.backgroundImage}`
+          let curURL = ogURL.substring(14)
+          let aURL = curURL.replace(/\.([^\.]+)/, "")
+          
           return (
             <SafeAreaView>
-            <ImageBackground source={require('../assets/books/lm1-rs.jpg')}  style={{width:"80%", height:"80%",display:'flex', justifyContent:'center', alignItems:'center' }} 
-
+            <ImageBackground source={require('../assets/books/'+ aURL)}  style={{width:"80%", height:"80%",display:'flex', justifyContent:'center', alignItems:'center' }} 
               key={[item.name]}
               style={[
                 styles.item,
@@ -115,7 +118,8 @@ export default function BookGridHelper() {
               <Text
                 style={[styles.text, { color: item.color }]}
                 onPress={() => {
-                  setFlag(!flag);
+                  // setFlag(!flag);
+                  console.log(curURL.replace(/\.([^\.]+)/, ""))
                 }}
               >
                 {item.name}
