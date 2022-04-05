@@ -4,7 +4,7 @@ import { View, Text, Platform } from "react-native";
 import { ScrollView, StyleSheet } from "react-native";
 import { List, Divider, useTheme } from "react-native-paper";
 import { ULTRA_KEY } from "@env";
-//  import "localstorage-polyfill";
+  import "localstorage-polyfill";
 var axios = require("axios").default;
 
 // TODO format on save && impl only fetch every 24h

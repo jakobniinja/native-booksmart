@@ -248,3 +248,34 @@
     { date: "2019-03-05" }
   ];
 
+
+  export const ScoreBoardCall = [
+    {
+      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+      fullName: "Lilla Captain",
+      timeStamp: "12:47 PM",
+      recentText: "1244 ",
+      avatarUrl: require('./assets/punk25.png'),
+    },
+    {
+      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+      fullName: "Olivia",
+      timeStamp: "11:11 PM",
+      recentText: "840",
+      avatarUrl: require('./assets/punk40.png'),
+    },
+    {
+      id: "58694a0f-3da1-471f-bd96-145571e29d72",
+      fullName: "Guest",
+      timeStamp: "6:22 PM",
+      recentText: "330",
+      avatarUrl: require('./assets/punk60.png'),
+    },
+    {
+      id: "68694a0f-3da1-431f-bd56-142371e29d72",
+      fullName: "Tofflan",
+      timeStamp: "8:56 PM",
+      recentText: "10",
+      avatarUrl: require('./assets/punk40.png'),
+    },
+  ];

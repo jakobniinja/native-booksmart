@@ -101,7 +101,7 @@ export default function BookGridHelper() {
           
           return (
             <SafeAreaView>
-            <ImageBackground source={require('../assets/books/'+ aURL)}  style={{width:"80%", height:"80%",display:'flex', justifyContent:'center', alignItems:'center' }} 
+            <ImageBackground source={require('../assets/books/dfmf3-rs.jpg')}  style={{width:"80%", height:"80%",display:'flex', justifyContent:'center', alignItems:'center' }} 
               key={[item.name]}
               style={[
                 styles.item,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
   item: {
     width: 80,
     borderRadius: 12,
-    height: 70,
+    height: 120,
     color: "#fff",
     alignItems: "center",
     justifyContent: "center",
