@@ -24,9 +24,11 @@ export default function MyStack() {
     occupation: "golf",
   });
 
+  const [clicked, setClicked] = useState(false)
+
   const allValues = useMemo(
-    () => ({ name, setName, user, setUser }),
-    [name, setName, user, setUser]
+    () => ({ name, setName, user, setUser, clicked, setClicked  }),
+    [name, setName, user, setUser,clicked, setClicked ]
   );
 
   return (

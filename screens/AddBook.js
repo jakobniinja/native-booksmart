@@ -8,11 +8,18 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Appcontext from "../Context/AppContext"
 import {db} from "../Firebase"
 import { doc, collection, addDoc } from "firebase/firestore";
+import AppContext from "../Context/AppContext";
 
 
 export default function AddBook() {
   
   const [currId, setCurrId] = useState(1234-5678);
+  const {setClicked, clicked} = useContext(AppContext)
+
+  useEffect(() => {
+    setClicked(!clicked)
+  }, [setClicked])
+  
 
 const d = new Date();
   const [lastRead, setLastRead] = useState("12: 00")
@@ -82,7 +89,10 @@ const d = new Date();
     onChangeText={(lastRead) => setLastRead(lastRead)}
     asterik
   />
-  <TouchableOpacity onPress={UpdateBook} >
+  <TouchableOpacity onPress={() => {
+    UpdateBook();
+    setClicked(!clicked)
+  }}   >
 
 
       <FlatGrid
