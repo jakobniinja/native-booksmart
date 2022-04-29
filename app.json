@@ -1,11 +1,19 @@
 {
   "expo": {
-    "name": "booksmart-n",
-    "slug": "booksmart-n",
+    "name": "BookSmart",
+    "slug": "BookSmart",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ]
   },
-  "name": "booksmart-n"
+  "android": {
+    "package" : "com.jakobniinja.BookSmart",
+    "versionCode": 1,
+    "adaptiveIcon" : {
+      "foregroundImage" : "./assets/folder.png",
+      "backgroundColor" : "#fff"
+    }
+
+  }
 }
