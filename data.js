@@ -249,32 +249,43 @@
   ];
 
 
+  const lc = new Date();
+lc.setMinutes(lc.getMinutes() - 10);
+lc.setHours(lc.getHours() + 2)
+
+  const ol = new Date();
+ol.setMinutes(ol.getMinutes() - 32);
+ol.setHours(lc.getHours() + 2)
+
+  const tf = new Date();
+ol.setMinutes(tf .getMinutes() - 2);
+
   export const ScoreBoardCall = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
       fullName: "Lilla Captain",
-      timeStamp: "12:47 PM",
-      recentText: "1244 ",
+      timeStamp: `${JSON.stringify(lc).substring(12,17)}`,
+      recentText: "12",
       avatarUrl: require('./assets/punk25.png'),
     },
     {
       id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
       fullName: "Olivia",
-      timeStamp: "11:11 PM",
+      timeStamp: `${JSON.stringify(ol).substring(12,17)}`,
       recentText: "840",
       avatarUrl: require('./assets/punk40.png'),
     },
     {
       id: "58694a0f-3da1-471f-bd96-145571e29d72",
       fullName: "Guest",
-      timeStamp: "6:22 PM",
+      timeStamp: "06:22",
       recentText: "330",
       avatarUrl: require('./assets/punk60.png'),
     },
     {
       id: "68694a0f-3da1-431f-bd56-142371e29d72",
       fullName: "Tofflan",
-      timeStamp: "8:56 PM",
+      timeStamp: `${JSON.stringify(tf).substring(12,17)}`,
       recentText: "10",
       avatarUrl: require('./assets/punk40.png'),
     },

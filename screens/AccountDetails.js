@@ -9,7 +9,13 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
-import { doc, collection, getDocs,  updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import AppContext from "../Context/AppContext";
 import { db } from "../Firebase";
 
@@ -34,7 +40,7 @@ const AccountDetails = (props) => {
 
   const openConfirmationAlert = () => {
     Alert.alert(
-      `Ta bort ${user.name}` ,
+      `Ta bort ${user.name}`,
       "Är du säker?",
       [
         { text: "Nej", onPress: () => console.log("canceled") },
@@ -52,24 +58,22 @@ const AccountDetails = (props) => {
     data.docs.map((doc) => {
       const { name, age, occupation } = doc.data();
       if (doc.id == props.route.params.userId) {
-        setUser({id:doc.id  , name: name, age: age, occupation: occupation,  });
+        setUser({ id: doc.id, name: name, age: age, occupation: occupation });
       }
     });
   };
 
   const updateUser = async (name, age, occupation) => {
     const userRef = doc(usersCollectionRef, props.route.params.userId);
-        const newName = {name: name}
-        const newAge= { age: age };
-        const newOccupation = {occupation: occupation}
+    const newName = { name: name };
+    const newAge = { age: age };
+    const newOccupation = { occupation: occupation };
     await updateDoc(userRef, newName, newAge, newOccupation);
-
-
   };
 
   useEffect(() => {
     updateUser();
-  }, [])
+  }, []);
   useEffect(() => {
     getUsers();
     setLoading(false);

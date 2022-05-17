@@ -2,11 +2,10 @@ import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
 import SortableGridview from "react-native-sortable-gridview";
 import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../Context/AppContext";
-import {data2, data3, data4} from "../assets/data"
+import { data2, data3, data4 } from "../assets/data";
 
 export default function BookGridHelper() {
   const { user, setUser, setClicked, clicked } = useContext(AppContext);
-
 
   const [bookLogic, setBookLogic] = useState([
     { name: `book1`, backgroundColor: "#09f", color: "#000" },
@@ -17,16 +16,13 @@ export default function BookGridHelper() {
     },
   ]);
 
-
   if (user.name == "Tofflan") {
     return (
       <SortableGridview
         data={data2}
         onDragStart={() => {
-          console.log("LockItemCoverLayout onDragStart");
         }}
         onDragRelease={(data) => {
-          console.log("LockItemCoverLayout onDragRelease", data);
         }}
         renderItem={(item, index) => {
           return (
@@ -62,10 +58,8 @@ export default function BookGridHelper() {
       <SortableGridview
         data={data3}
         onDragStart={() => {
-          console.log("LockItemCoverLayout onDragStart");
         }}
         onDragRelease={(data) => {
-          console.log("LockItemCoverLayout onDragRelease", data);
         }}
         renderItem={(item, index) => {
           return (
@@ -101,10 +95,8 @@ export default function BookGridHelper() {
       <SortableGridview
         data={data4}
         onDragStart={() => {
-          console.log("LockItemCoverLayout onDragStart");
         }}
         onDragRelease={(data) => {
-          console.log("LockItemCoverLayout onDragRelease", data);
         }}
         renderItem={(item, index) => {
           return (
@@ -140,10 +132,8 @@ export default function BookGridHelper() {
       <SortableGridview
         data={bookLogic}
         onDragStart={() => {
-          console.log("LockItemCoverLayout onDragStart");
         }}
         onDragRelease={(data) => {
-          console.log("LockItemCoverLayout onDragRelease", data);
         }}
         renderItem={(item, index) => {
           return (

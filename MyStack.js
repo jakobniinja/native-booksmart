@@ -17,6 +17,8 @@ const Stack = createStackNavigator();
 
 export default function MyStack() {
   const [name, setName] = useState("jakob");
+
+
   const [user, setUser] = useState({
     id: "1234-5678",
     name: "guest",
@@ -27,7 +29,7 @@ export default function MyStack() {
   const [clicked, setClicked] = useState(false)
 
   const allValues = useMemo(
-    () => ({ name, setName, user, setUser, clicked, setClicked  }),
+    () => ({ name, setName, user, setUser, clicked, setClicked }),
     [name, setName, user, setUser,clicked, setClicked ]
   );
 

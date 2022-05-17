@@ -13,7 +13,15 @@ import {
 } from "native-base";
 
 import { View } from "react-native";
-import { collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc,  } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../Firebase";
 import { ScoreBoardCall } from "../data";
 
@@ -31,13 +39,13 @@ const Example = () => {
   const [allUsers, setUser] = useState([]);
   const [allBooks, setAllBooks] = useState([]);
   const [userIds, setUserIds] = useState([]);
-  const [setp, setSetp] = useState([])
+  const [setp, setSetp] = useState([]);
   var pointGetter = [];
   let pointGetter2 = [];
 
-  const pointAdder = async (user, idx) => { 
-   console.log(user, idx)
-   }
+  const pointAdder = async (user, idx) => {
+    console.log(user, idx);
+  };
   useEffect(() => {
     const userCol = collection(db, "users");
     const getUser = async () => {
@@ -52,43 +60,26 @@ const Example = () => {
 
   useEffect(() => {
     allUsers.map((user, index) => {
-        console.log("user id :", user.id, "index is:", index);
+      const booksCol = collection(db, "users", user.id, "books");
+      const getUser = async () => {
+        const data = await getDocs(booksCol);
+        setAllBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      };
 
-      
-    const booksCol= collection(db, "users", user.id, "books");
-    const getUser = async () => {
-      const data = await getDocs(booksCol);
-      setAllBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-
-    };
-
-    const q = collection(db, "users", user.id, "books");
-    const unsubscribe = onSnapshot(q, () => {
-      getUser();
-    });
+      const q = collection(db, "users", user.id, "books");
+      const unsubscribe = onSnapshot(q, () => {
+        getUser();
+      });
     });
   }, [allUsers]);
 
+  const res = allBooks.forEach((i) => pointGetter.push(i.index, i.points));
 
-
- const res = allBooks.forEach(i => pointGetter.push(i.index,i.points, ));
-
-console.log("pg: ", res)
-
-  
-allUsers.map((user, index) => {
-        // pointAdder(user, index);
-        // let result = allBooks.groupBy( ({ index }) => index ); 
-        // console.log(result)
-})
-
-
-  
   return (
     <Box>
       <Heading fontSize="xl" p="4" pb="3"></Heading>
       <FlatList
-        data={ScoreBoardCall }
+        data={ScoreBoardCall}
         renderItem={({ item }) => (
           <Box
             borderBottomWidth="1"
@@ -101,12 +92,7 @@ allUsers.map((user, index) => {
             py="2"
           >
             <HStack space={3} justifyContent="space-between">
-              <Avatar
-                size="48px"
-                source={
-                item.avatarUrl
-                }
-              />
+              <Avatar size="48px" source={item.avatarUrl} />
               <VStack>
                 <Text
                   _dark={{
