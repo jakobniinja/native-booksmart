@@ -10,9 +10,6 @@ import j1 from "./books/spionb.jpg";
 import h2 from "./books/halvblodsprinsen-rs.jpg";
 import h3 from "./books/fenfix-rs.jpg";
 
-
-
-
 export let data2 = [
   {
     name: "På Ny Kula",
