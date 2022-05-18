@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  FlatList,
-  Heading,
-  Avatar,
-  HStack,
-  VStack,
-  Text,
-  Spacer,
-  Center,
-  NativeBaseProvider,
-} from "native-base";
-
-import { View } from "react-native";
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   onSnapshot,
-  query,
-  updateDoc,
+  query
 } from "firebase/firestore";
-import { db } from "../Firebase";
+import {
+  Avatar, Box, Center, FlatList,
+  Heading, HStack, NativeBaseProvider, Spacer, Text, VStack
+} from "native-base";
+import React, { useEffect, useState } from "react";
 import { ScoreBoardCall } from "../data";
+import { db } from "../Firebase";
+
 
 export default function LeaderBoard() {
   return (
@@ -36,8 +24,11 @@ export default function LeaderBoard() {
 }
 
 const Example = () => {
+  const usersCollectionRef = collection(db, "users");
+
   const [allUsers, setUser] = useState([]);
   const [allBooks, setAllBooks] = useState([]);
+  const [users, setUsers] = useState([])
   const [userIds, setUserIds] = useState([]);
   const [setp, setSetp] = useState([]);
   var pointGetter = [];
@@ -74,6 +65,33 @@ const Example = () => {
   }, [allUsers]);
 
   const res = allBooks.forEach((i) => pointGetter.push(i.index, i.points));
+
+
+  console.log(users.map((user => user)));
+
+
+
+
+  useEffect(() => {
+    
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    const q = query(collection(db, "users"));
+    const unsubscribe = onSnapshot(q, () => {
+      getUsers();
+     setLoading(false) 
+      
+    });
+  }, [name]);
+
+  console.log(users)
+
+  users.map((user) => {
+    console.log(user)
+  })
+
 
   return (
     <Box>
@@ -124,6 +142,7 @@ const Example = () => {
                 {item.timeStamp}
               </Text>
             </HStack>
+
           </Box>
         )}
         keyExtractor={(item) => item.id}
