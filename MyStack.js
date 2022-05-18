@@ -24,6 +24,7 @@ export default function MyStack() {
     name: "guest",
     age: "124",
     occupation: "golf",
+    count: 0
   });
 
   const [clicked, setClicked] = useState(false)
