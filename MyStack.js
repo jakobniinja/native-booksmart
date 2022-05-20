@@ -22,7 +22,7 @@ export default function MyStack() {
   const [user, setUser] = useState({
     id: "1234-5678",
     name: "guest",
-    age: "124",
+    age: 124,
     occupation: "golf",
     count: 0
   });
@@ -54,11 +54,6 @@ export default function MyStack() {
             options={{ headerTitleAlign: "center", title: "Skapa Konto" }}
           />
 
-          {/* <Stack.Screen
-            name="Stats"
-            component={Stats}
-            options={{ headerTitleAlign: "center", title: "Statistik" }}
-          /> */}
 
           <Stack.Screen
             name="AccountDetails"

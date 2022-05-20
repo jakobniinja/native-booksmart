@@ -84,7 +84,7 @@ const Example = () => {
      setLoading(false) 
       
     });
-  }, [name]);
+  }, []);
 
   console.log(users)
 

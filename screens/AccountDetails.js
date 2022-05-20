@@ -59,6 +59,7 @@ const AccountDetails = (props) => {
 
     data.docs.map((doc) => {
       const { name, age, occupation } = doc.data();
+      console.log(typeof(age))
       const count = booki.docs.length
       if (doc.id == props.route.params.userId) {
         setUser({ id: doc.id, name: name, age: age, occupation: occupation, count:count  });
@@ -67,18 +68,21 @@ const AccountDetails = (props) => {
   };
 
   const updateUser = async (name, age, occupation, count) => {
-    const userRef = doc(usersCollectionRef, props.route.params.userId);
+    const userRef = doc(db, "users", props.route.params.userId);
     const newName = { name: name };
     const newAge = { age: age };
     const newCount = { count: count };
-    
     const newOccupation = { occupation: occupation };
-    await updateDoc(userRef, newName, newAge, newOccupation, newCount);
+    console.log(name, age, occupation,  count)
+
+    setTimeout(async() => {
+    await updateDoc(userRef,  {...user} );
+    }, 3000);
   };
 
   useEffect(() => {
     updateUser();
-  }, []);
+  }, [user]);
   useEffect(() => {
     getUsers();
     setLoading(false);
@@ -122,11 +126,15 @@ const AccountDetails = (props) => {
         <Button
           style={styles.btn}
           title="Set to active user"
-          onPress={() => {
-            updateUser(user.name, user.age, user.occupation, 12345);
+          onPress={async() => {
+            // setTimeout(async() => {
+            // await updateUser({user, ...user});
+            // }, 3000);
+             await updateUser(user);
+            console.log("inside button")
             console.log(user)
             console.log(user.age)
-            console.log(user.age)
+            console.log(user.count)
             navigation.navigate("UserAccounts");
           }}
           color="#8a2eb2"

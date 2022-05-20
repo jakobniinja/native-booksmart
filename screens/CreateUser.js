@@ -21,6 +21,7 @@ const CreateUser= (props) => {
     name: "",
     age: "",
     occupation: "",
+    count: 0
   };
   
   const {setName, name} = useContext(AppContext)
@@ -33,7 +34,7 @@ const CreateUser= (props) => {
   }
 
   const createUser = async () => {
-    await addDoc(usersCollectionRef, { name: state.name, age: Number(state.age), occupation: state.occupation  });
+    await addDoc(usersCollectionRef, { name: state.name, age: state.age, occupation: state.occupation, count: 0  });
   };
 
   const saveNewUser = async () => {
