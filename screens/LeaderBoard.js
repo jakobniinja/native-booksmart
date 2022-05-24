@@ -82,7 +82,6 @@ const Example = () => {
     const unsubscribe = onSnapshot(q, () => {
       getUsers();
      setLoading(false) 
-      
     });
   }, []);
 

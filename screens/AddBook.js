@@ -3,117 +3,165 @@ import { View, Text, StyleSheet } from "react-native";
 import { FlatGrid } from "react-native-super-grid";
 import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import {Picker, FormItem} from "react-native-form-component"
+import { Picker, FormItem } from "react-native-form-component";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import Appcontext from "../Context/AppContext"
-import {db} from "../Firebase"
-import { doc, collection, addDoc } from "firebase/firestore";
+import Appcontext from "../Context/AppContext";
+import { db } from "../Firebase";
+import { doc, collection, addDoc, updateDoc, getDocs } from "firebase/firestore";
 import AppContext from "../Context/AppContext";
 
-
 export default function AddBook() {
-  
-  const [currId, setCurrId] = useState(1234-5678);
-  const {setClicked, clicked} = useContext(AppContext)
+  const [currId, setCurrId] = useState(1234 - 5678);
+  const [  clicked, setClicked ] = useState(false)
+  const { user,setUser } = useContext(AppContext);
 
   useEffect(() => {
-    setClicked(!clicked)
-  }, [setClicked])
-  
+    setClicked(!clicked);
+  }, [setClicked]);
 
-const d = new Date();
-  const [lastRead, setLastRead] = useState("12: 00")
+  const d = new Date();
+  const [lastRead, setLastRead] = useState("12: 00");
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
     var hours = new Date().getHours(); //Current Hours
     var min = new Date().getMinutes(); //Current Minutes
-     setLastRead(
-       hours + ':' + min  + " - " +date + '/' + month + '/' + year 
-    );
-
-  }, [])
+    setLastRead(hours + ":" + min + " - " + date + "/" + month + "/" + year);
+  }, []);
 
   useEffect(() => {
-    setCurrId(user.id)
+    setCurrId(user.id);
   }, []);
-  
 
   const navigation = useNavigation();
-  const [number, setNumber] = useState(1)
+  const [number, setNumber] = useState(1);
 
-  const [title, setTitle] = useState("Title")
-  const [pages, setPages] = useState(0 )
+  const [title, setTitle] = useState("Title");
+  const [pages, setPages] = useState(0);
   const [imageUrl, setImageUrl] = useState("enter image");
-  const [items, setItems] = React.useState([
-    { name: `shu `, code: "#8a2be2" },
-  ]);
-  const {user} = useContext(Appcontext)
+  const [items, setItems] = React.useState([{ name: `shu `, code: "#8a2be2" }]);
+  const [loading, setLoading] = useState(true);
 
 
-  const UpdateBook= async() => {
-  const booksCollectionRef = collection(db, "users", currId, "books");
-    await addDoc(booksCollectionRef , {title: title, pages:pages , points: pages/3, lastRead: lastRead, imageURL: imageUrl } );
-    navigation.navigate('Books')
-  }
-    
+  const usersCollectionRef = collection(db, "users");
+  const bookiCollectionRef = collection(db, "users", user.id, "books");
+console.log("uid is::: ", user.id)
+
+  const getUsers = async () => {
+    const data = await getDocs(usersCollectionRef);
+    const booki = await getDocs(bookiCollectionRef);
+    console.log(data)
+    console.log(booki)
+
+    data.docs.map((doc) => {
+      const { name, age, occupation } = doc.data();
+      console.log(age)
+      console.log(name)
+      const count = booki.docs.length
+      if (doc.id == user.id) {
+        setUser({ id: doc.id, name: name, age: age, occupation: occupation, count:count  });
+      console.log(count)
+      console.log("one was true")
+      }
+
+    });
+  };
   
+
+  const UpdateBook = async () => {
+    const booksCollectionRef = collection(db, "users", currId, "books");
+    await addDoc(booksCollectionRef, {
+      title: title,
+      pages: pages,
+      points: pages / 3,
+      lastRead: lastRead,
+      imageURL: imageUrl,
+    });
+    navigation.navigate("Books");
+  };
+
+  
+  useEffect( async() => {
+    await getUsers();
+    setLoading(false);
+  }, [loading, clicked]);
+
   return (
     <>
-    <FormItem
-    placeholder="Title"
-    isRequired
-    value={title}
-    onChangeText={(title) => setTitle(title)}
-    asterik
-  />
-    <FormItem
-    placeholder="Pages"
-    isRequired
-    value={pages}
-    onChangeText={(pages) =>  setPages(pages)}
-    asterik
-  />
-    <FormItem
-    placeholder="Image url"
-    isRequired
-    value={imageUrl}
-    onChangeText={(text) => setImageUrl(text)}
-    asterik
-  />
-    <FormItem
-    placeholder="Lastread"
-    isRequired
-    value={lastRead}
-    onChangeText={(lastRead) => setLastRead(lastRead)}
-    asterik
-  />
-  <TouchableOpacity onPress={() => {
-    UpdateBook();
-    setClicked(!clicked)
-  }}   >
-
-
-      <FlatGrid
-        itemDimension={130}
-        
-        data={items}
-        style={styles.gridView}
-        spacing={10}
-        renderItem={({ item }) => (
-          <View style={[styles.itemContainer, { backgroundColor: item.code } ]}>
-            <Text style={styles.itemCode}>{item.code}</Text>
-          </View>
-        )}
-
+      <FormItem
+        placeholder="Title"
+        isRequired
+        value={title}
+        onChangeText={(title) => setTitle(title)}
+        asterik
       />
-    </TouchableOpacity>
+      <FormItem
+        placeholder="Pages"
+        isRequired
+        value={pages}
+        onChangeText={(pages) => setPages(pages)}
+        asterik
+      />
+      <FormItem
+        placeholder="Image url"
+        isRequired
+        value={imageUrl}
+        onChangeText={(text) => setImageUrl(text)}
+        asterik
+      />
+      <FormItem
+        placeholder="Lastread"
+        isRequired
+        value={lastRead}
+        onChangeText={(lastRead) => setLastRead(lastRead)}
+        asterik
+      />
+      {/* <TouchableOpacity
+        onPress={() => {
+          UpdateBook();
+UpdateUser()
+          setClicked(!clicked);
+        }}
+      >
+        <FlatGrid
+          itemDimension={130}
+          data={items}
+          style={styles.gridView}
+          spacing={10}
+          renderItem={({ item }) => (
+            <View
+              style={[styles.itemContainer, { backgroundColor: item.code }]}
+            >
+              <Text style={styles.itemCode}>{item.code}</Text>
+            </View>
+          )}
+        />
+
+      </TouchableOpacity> */}
+
+      <TouchableOpacity
+        style={{ backgroundColor: "#8a2be2", height: 35, marginBottom: 5 }}
+        onPress={ async() => {
+          UpdateBook();
+          setClicked(!clicked);
+        }}
+      >
+        <Text
+          style={{
+            display: "flex",
+            textAlign: "center",
+            color: "white",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          add +
+        </Text>
+      </TouchableOpacity>
     </>
-
   );
-
-  };
+}
 
 const styles = StyleSheet.create({
   gridView: {
@@ -121,13 +169,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemContainer: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     borderRadius: 5,
     padding: 10,
     height: 140,
     width: "90%",
     marginLeft: "55%",
-
   },
   itemName: {
     fontSize: 16,

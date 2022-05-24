@@ -20,6 +20,7 @@ import AppContext from "../Context/AppContext";
 import { db } from "../Firebase";
 
 const AccountDetails = (props) => {
+  const [currId, setCurrId] = useState(1234 - 5678);
   const [users, setUsers] = useState([]);
   const { user, setUser } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
@@ -69,10 +70,6 @@ const AccountDetails = (props) => {
 
   const updateUser = async (name, age, occupation, count) => {
     const userRef = doc(db, "users", props.route.params.userId);
-    const newName = { name: name };
-    const newAge = { age: age };
-    const newCount = { count: count };
-    const newOccupation = { occupation: occupation };
     console.log(name, age, occupation,  count)
 
     setTimeout(async() => {
@@ -83,6 +80,7 @@ const AccountDetails = (props) => {
   useEffect(() => {
     updateUser();
   }, [user]);
+
   useEffect(() => {
     getUsers();
     setLoading(false);
@@ -127,14 +125,7 @@ const AccountDetails = (props) => {
           style={styles.btn}
           title="Set to active user"
           onPress={async() => {
-            // setTimeout(async() => {
-            // await updateUser({user, ...user});
-            // }, 3000);
              await updateUser(user);
-            console.log("inside button")
-            console.log(user)
-            console.log(user.age)
-            console.log(user.count)
             navigation.navigate("UserAccounts");
           }}
           color="#8a2eb2"
