@@ -47,7 +47,6 @@ const CreateUser= (props) => {
 
         props.navigation.navigate("UserAccounts");
       } catch (error) {
-        console.log(error)
       }
     }
   };

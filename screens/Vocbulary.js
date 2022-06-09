@@ -37,7 +37,6 @@ const Vocbulary = () => {
       .request(options)
       .then(function (response) {
         if (localStorage.getItem("word 1") == null) {
-          console.log(response.data);
           let i = 0;
           response.data.forEach((x) => {
             localStorage.setItem(`word ${i}`, x);
@@ -47,7 +46,6 @@ const Vocbulary = () => {
         }
       })
       .catch(function (error) {
-        console.error(error);
       });
 
     call24;
@@ -110,7 +108,6 @@ const Vocbulary = () => {
             arr.map((word, index) => (
               <List.Item
                 onPress={() => {
-                  console.log("hi from ", index, word);
                   let url = `https://www.oxfordlearnersdictionaries.com/definition/english/${word}`;
 
                   if (Platform.OS == "web") {

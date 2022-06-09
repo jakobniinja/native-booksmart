@@ -60,7 +60,6 @@ const AccountDetails = (props) => {
 
     data.docs.map((doc) => {
       const { name, age, occupation } = doc.data();
-      console.log(typeof(age))
       const count = booki.docs.length
       if (doc.id == props.route.params.userId) {
         setUser({ id: doc.id, name: name, age: age, occupation: occupation, count:count  });
@@ -70,7 +69,6 @@ const AccountDetails = (props) => {
 
   const updateUser = async (name, age, occupation, count) => {
     const userRef = doc(db, "users", props.route.params.userId);
-    console.log(name, age, occupation,  count)
 
     setTimeout(async() => {
     await updateDoc(userRef,  {...user} );

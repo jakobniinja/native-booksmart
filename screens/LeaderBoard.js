@@ -35,7 +35,6 @@ const Example = () => {
   let pointGetter2 = [];
 
   const pointAdder = async (user, idx) => {
-    console.log(user, idx);
   };
   useEffect(() => {
     const userCol = collection(db, "users");
@@ -67,7 +66,6 @@ const Example = () => {
   const res = allBooks.forEach((i) => pointGetter.push(i.index, i.points));
 
 
-  console.log(users.map((user => user)));
 
 
 
@@ -85,11 +83,7 @@ const Example = () => {
     });
   }, []);
 
-  console.log(users)
 
-  users.map((user) => {
-    console.log(user)
-  })
 
 
   return (

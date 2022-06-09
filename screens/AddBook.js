@@ -46,23 +46,16 @@ export default function AddBook() {
 
   const usersCollectionRef = collection(db, "users");
   const bookiCollectionRef = collection(db, "users", user.id, "books");
-console.log("uid is::: ", user.id)
 
   const getUsers = async () => {
     const data = await getDocs(usersCollectionRef);
     const booki = await getDocs(bookiCollectionRef);
-    console.log(data)
-    console.log(booki)
 
     data.docs.map((doc) => {
       const { name, age, occupation } = doc.data();
-      console.log(age)
-      console.log(name)
       const count = booki.docs.length
       if (doc.id == user.id) {
         setUser({ id: doc.id, name: name, age: age, occupation: occupation, count:count  });
-      console.log(count)
-      console.log("one was true")
       }
 
     });

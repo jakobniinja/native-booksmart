@@ -9,7 +9,6 @@ import Books from "./screens/Books";
 import CreateUser from "./screens/CreateUser";
 import Home from "./screens/Home";
 import LeaderBoard from "./screens/LeaderBoard";
-import Stats from "./screens/Stats";
 // import LeaderBoard from "./screens/LeaderBoard";
 import UserAccounts from "./screens/UserAccounts";
 import Vocbulary from "./screens/Vocbulary";
