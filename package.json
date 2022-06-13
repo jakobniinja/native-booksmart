@@ -7,7 +7,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "rewire": "react-app-rewired start"
+    "rewire": "react-app-rewired start",
+    "postinstall": "npm run build",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts build"
   },
   "dependencies": {
     "@freakycoder/react-native-calendar-heatmap": "^0.2.1",
